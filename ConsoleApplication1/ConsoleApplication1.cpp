@@ -3,6 +3,12 @@
 
 #include <iostream>
 
+void function()
+{
+    char* addr = (char*)0x00000000;
+    std::cout << addr << std::endl;
+}
+
 int main()
 {
     std::cout << "Hello Volodya!\n";
