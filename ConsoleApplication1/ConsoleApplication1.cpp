@@ -14,7 +14,7 @@ int main()
     std::cout << 233 << std::endl;
     std::cout << 211 << std::endl;
     std::cout << 217 << std::endl;
-    std::cout << 215367568 << std::endl;
+    std::cout << "Krytaya ficha" << std::endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
