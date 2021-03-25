@@ -1,9 +1,14 @@
-language: csharp
-mono: none
-dist: windows
-dotnet: 3.1
-install:
-  - dotnet restore
-script:
-  - dotnet build
-  - dotnet test Client/Client.csproj
+language:
+    csharp 
+sudo: required 
+mono: none 
+dotnet: 3.0 
+
+os: - linux 
+
+before_script: 
+- dotnet restore ".\Client\Client.sln" 
+
+script: 
+- dotnet build ".\Client\Client.sln" -c Release 
+- dotnet test ".\Client\Client.sln" -c Release -v n
