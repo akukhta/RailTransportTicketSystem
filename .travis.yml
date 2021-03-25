@@ -1,7 +1,8 @@
 language: csharp 
 mono: none 
 dotnet: 5,0
-os: linux 
+os: linux
+dist: bionic 
 before_script: 
 - dotnet restore 
 script: 
