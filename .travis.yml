@@ -1,7 +1,5 @@
 language: csharp 
-mono: latest
-dotnet: 5.0.100
-os: linux
-dist: bionic 
+dotnet: 4.7.2
+os: windows
 script: 
 - dotnet build ".\Client\Client.sln" -c Release 
