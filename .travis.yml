@@ -3,7 +3,5 @@ mono: none
 dotnet: 5.0.100
 os: linux
 dist: bionic 
-before_script: 
-- dotnet restore 
 script: 
 - dotnet build ".\Client\Client.sln" -c Release 
