@@ -2,12 +2,9 @@ language: csharp
 sudo: required 
 mono: none 
 dotnet: 3.0 
-
 os: - linux 
-
 before_script: 
 - dotnet restore ".\Client\Client.sln" 
-
 script: 
 - dotnet build ".\Client\Client.sln" -c Release 
 - dotnet test ".\Client\Client.sln" -c Release -v n
