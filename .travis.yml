@@ -1,5 +1,6 @@
 language: csharp 
 dotnet: 4.0
+mono: none
 os: linux
 dist: bionical
 script: 
