@@ -1,7 +1,7 @@
 language: csharp 
-dotnet: 3.0
+dotnet: 5.0
 mono: none
 os: linux
-dist: bionical
+dist: focal
 script: 
 - dotnet build ".\Client\Client.sln" -c Release 
