@@ -1,32 +1,5 @@
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+ConsoleApplication1/.vs/ConsoleApplication1/v16/.suo
+ConsoleApplication1/.vs/ConsoleApplication1/v16/Browse.VC.db
+ConsoleApplication1/.vs/ConsoleApplication1/v16/ipch/AutoPCH/b899c26a3a8bbfd0/CONSOLEAPPLICATION1.ipch
+ConsoleApplication1/ConsoleApplication1.cpp
