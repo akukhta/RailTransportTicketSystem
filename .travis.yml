@@ -1,6 +1,6 @@
 language: csharp 
 mono: none 
-dotnet: 4.7.2
+dotnet: 4.7
 os: linux 
 before_script: 
 - dotnet restore 
