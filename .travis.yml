@@ -3,11 +3,10 @@ dotnet: 2.0.0
 mono: none
 os: linux
 dist: 
-	- focal
-	- bionic
-	- xenial
-	- trusty
-	- precise
+ - focal
+ - bionic
+ - xenial
+ - trusty
 
 script: 
 - dotnet build ".\Client\Client.sln" -c Release 
