@@ -1,7 +1,7 @@
 language: csharp 
-dotnet: 3.1.202
+dotnet: 4.7.2
 mono: none
 os: linux
-dist: xenial
+dist: bionical
 script: 
 - dotnet build ".\Client\Client.sln" -c Release 
