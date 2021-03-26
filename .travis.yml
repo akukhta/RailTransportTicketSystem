@@ -1,5 +1,5 @@
 language: csharp 
-dotnet: 4.5
+dotnet: 4.0
 mono: none
 os: linux
 dist: focal
