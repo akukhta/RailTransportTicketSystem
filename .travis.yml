@@ -2,6 +2,12 @@ language: csharp
 dotnet: 2.0.0
 mono: none
 os: linux
-dist: bionical
+dist: 
+	- focal
+	- bionic
+	- xenial
+	- trusty
+	- precise
+
 script: 
 - dotnet build ".\Client\Client.sln" -c Release 
