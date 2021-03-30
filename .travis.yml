@@ -1,0 +1,7 @@
+language: csharp 
+os: linux
+dist: bionic
+sudo: require
+script: 
+- sudo apt-get install mono-complete 
+- xbuild ./Client/Client.sln 
