@@ -1,7 +1,7 @@
 language: csharp 
-dotnet: 2.0.0
-mono: none
 os: linux
 dist: bionic
+sudo: require
 script: 
-- dotnet build ".\Client\Client.sln" -c Release 
+- sudo apt-get install mono-complete 
+- xbuild ./Client/Client.sln 
