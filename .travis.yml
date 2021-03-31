@@ -5,3 +5,4 @@ sudo: require
 script: 
 - sudo apt-get install mono-complete 
 - xbuild ./Client/Client.sln 
+- xbuild ./Server/Server.sln
