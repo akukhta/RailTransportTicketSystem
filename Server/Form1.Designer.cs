@@ -30,16 +30,16 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -71,42 +71,23 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // label3
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(791, 338);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(591, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(137, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "вывод сообщений всяких";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // button1
+            // richTextBox1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 113);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(164, 45);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Включить";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 215);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(164, 45);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Выключить";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // listView1
-            // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(3, 28);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(330, 232);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.richTextBox1.Location = new System.Drawing.Point(524, 34);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(260, 232);
+            this.richTextBox1.TabIndex = 4;
+            this.richTextBox1.Text = "";
             // 
             // splitContainer1
             // 
@@ -128,6 +109,15 @@
             this.splitContainer1.SplitterDistance = 170;
             this.splitContainer1.TabIndex = 3;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(3, 164);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(164, 45);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "хз";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -137,6 +127,24 @@
             this.label1.Size = new System.Drawing.Size(92, 25);
             this.label1.TabIndex = 2;
             this.label1.Text = "Cервер:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 113);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(164, 45);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Включить";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(3, 215);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(164, 45);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Выключить";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -148,32 +156,25 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Сейчас подключены:";
             // 
-            // button3
+            // listView1
             // 
-            this.button3.Location = new System.Drawing.Point(3, 164);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(164, 45);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "хз";
-            this.button3.UseVisualStyleBackColor = true;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(3, 28);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(330, 232);
+            this.listView1.TabIndex = 2;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
-            // richTextBox1
+            // tabPage2
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(524, 34);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(260, 232);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(591, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(137, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "вывод сообщений всяких";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(791, 338);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

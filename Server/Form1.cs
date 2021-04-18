@@ -16,17 +16,34 @@ namespace Server
         {
             listView1.Items.Add("g776");
             listView1.Items.Add("g54");
-            listView1.Items.Add("g43");          
+            listView1.Items.Add("g43");
+            Database database = new Database();
         }
         public Form1()
         {
             InitializeComponent();
-            test();
+
+            try
+            {
+                db = new Database();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                db = null;
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private Database db;
     }
 }
