@@ -12,6 +12,8 @@ namespace Server
 {
     public partial class Form1 : Form
     {
+        private Server server;
+
         private void test()
         {
             listView1.Items.Add("g776");
@@ -22,9 +24,16 @@ namespace Server
         {
             InitializeComponent();
             test();
+            server = new Server(new UIUpdater(this));
+            server.start();
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }
