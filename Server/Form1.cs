@@ -23,9 +23,9 @@ namespace Server
         public Form1()
         {
             InitializeComponent();
+            listView1.View = System.Windows.Forms.View.List;
             test();
             server = new Server(new UIUpdater(this));
-            server.start();
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -35,7 +35,12 @@ namespace Server
 
         private void button1_Click(object sender, EventArgs e)
         {
+            server.start();
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            server.stop();
         }
     }
 }

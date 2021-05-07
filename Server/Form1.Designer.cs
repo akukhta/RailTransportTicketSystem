@@ -146,6 +146,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "Выключить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -159,6 +160,9 @@
             // 
             // listView1
             // 
+            this.listView1.AutoArrange = false;
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(3, 28);
             this.listView1.Name = "listView1";

@@ -26,19 +26,32 @@ namespace Server
             masterSocket.Bind(connectionEndPoint);
             connectedSockets = new List<Socket>();
             connectedSockets.Add(masterSocket);
-            networkThread = new Thread(new ThreadStart(networkListeningThreadFunc));
             this.uIUpdater = uIUpdater;
         }
 
         public void start()
         {
-            networkThread.Start();
+            if (networkThread == null || networkThread.ThreadState != ThreadState.Running)
+            {
+                networkThread = new Thread(new ThreadStart(networkListeningThreadFunc));
+                networkThread.Start();
+            }
+        }
+
+        public void stop()
+        {
+            if (networkThread.ThreadState == ThreadState.Running)
+            {
+                networkThread.Abort();
+                uIUpdater.LogMessage("Сервер выключен!");
+            }
         }
 
         private void networkListeningThreadFunc()
         {
             masterSocket.Listen(100);
             List<Socket> sockets = connectedSockets;
+            uIUpdater.LogMessage("Сервер включен!");
             while (true)
             {
                 Socket.Select(sockets, null, null, -1);
