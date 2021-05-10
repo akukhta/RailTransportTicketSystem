@@ -12,26 +12,20 @@ namespace Server
 {
     public partial class Form1 : Form
     {
+        private Server server;
+
         private void test()
         {
             listView1.Items.Add("g776");
             listView1.Items.Add("g54");
-            listView1.Items.Add("g43");
-            Database database = new Database();
+            listView1.Items.Add("g43");          
         }
         public Form1()
         {
             InitializeComponent();
-
-            try
-            {
-                db = new Database();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                db = null;
-            }
+            listView1.View = System.Windows.Forms.View.List;
+            test();
+            server = new Server(new UIUpdater(this));
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -39,11 +33,14 @@ namespace Server
 
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            server.start();
         }
 
-        private Database db;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            server.stop();
+        }
     }
 }

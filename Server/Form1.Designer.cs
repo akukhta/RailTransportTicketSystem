@@ -136,6 +136,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Включить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -145,6 +146,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "Выключить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -158,13 +160,15 @@
             // 
             // listView1
             // 
+            this.listView1.AutoArrange = false;
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(3, 28);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(330, 232);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -203,14 +207,14 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListView listView1;
+        public System.Windows.Forms.RichTextBox richTextBox1;
+        public System.Windows.Forms.ListView listView1;
     }
 }
 
