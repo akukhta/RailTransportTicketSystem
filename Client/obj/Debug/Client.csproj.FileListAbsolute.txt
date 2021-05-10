@@ -8,3 +8,4 @@ C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.c
 C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.exe
 C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.pdb
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.Form2.resources

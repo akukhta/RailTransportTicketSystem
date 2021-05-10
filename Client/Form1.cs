@@ -14,12 +14,7 @@ namespace Client
     {
         private void test()
         {
-            comboBox1.Items.Add("afewd");
-            comboBox1.Items.Add("adsrffad");
-            comboBox1.Items.Add("adsrffad");
-            comboBox2.Items.Add("adsrffad");
-            comboBox2.Items.Add("adsrffad");
-            comboBox2.Items.Add("adsrffad");
+            ;
         }
 
         public Form1()
