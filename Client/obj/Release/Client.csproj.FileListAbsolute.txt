@@ -1,0 +1,11 @@
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\bin\Release\Client.exe.config
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\bin\Release\Client.exe
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\bin\Release\Client.pdb
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.Form1.resources
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.Form2.resources
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.Properties.Resources.resources
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.csproj.GenerateResource.cache
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.csproj.CoreCompileInputs.cache
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.exe
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.pdb
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Client\obj\Release\Client.csprojAssemblyReference.cache
