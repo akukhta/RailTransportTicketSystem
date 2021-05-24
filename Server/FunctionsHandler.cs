@@ -56,7 +56,10 @@ namespace Server
 
         private List<byte> Sign(List<byte> buffer)
         {
-            return new List<byte>();
+            List<byte> answer = new List<byte>();
+            string password = buffer.ToArray().ToString();
+            answer.Add(db.Login(password));
+            return answer;
         }
 
         private List<byte> Sotr(List<byte> buffer)
