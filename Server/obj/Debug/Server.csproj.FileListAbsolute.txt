@@ -25,3 +25,6 @@ C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj
 C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.exe
 C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.pdb
+C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\bin\Debug\Xceed.Document.NET.dll
+C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\bin\Debug\Xceed.Words.NET.dll
+C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\obj\Debug\Server.csproj.CopyComplete
