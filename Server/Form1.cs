@@ -42,5 +42,10 @@ namespace Server
         {
             server.stop();
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
