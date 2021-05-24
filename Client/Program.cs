@@ -16,7 +16,12 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            ClientConnection client = new ClientConnection();
+            Form2 loginForm = new Form2(client);
+            ClientConnection.UserType user;
+            Application.Run(loginForm);
+            user = loginForm.user;
+
         }
     }
 }

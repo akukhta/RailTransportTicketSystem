@@ -18,3 +18,10 @@ C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\obj\Debug\Serv
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\obj\Debug\Server.exe
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\obj\Debug\Server.pdb
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.Form1.resources
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.Properties.Resources.resources
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.csproj.GenerateResource.cache
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.exe
+C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj\Debug\Server.pdb
