@@ -12,7 +12,7 @@ namespace Server
         {
             byte func = request[0];
             request.RemoveAt(0);
-            List<byte> answer;
+            List<byte> answer = new List<byte>();
 
             switch (func)
             {
@@ -33,9 +33,10 @@ namespace Server
                     break;
 
                 case 4:
-                    break
+                    break;
 
             }
+            return answer;
         }
 
         private List<byte> Sign(List<byte> buffer)
