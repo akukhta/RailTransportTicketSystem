@@ -26,6 +26,35 @@ namespace Server
             q.CommandText = query;
             q.ExecuteNonQuery();
         }
+
+        public byte Login(string password)
+        {
+            string query = "select sotrID from sign where password = \'" + password + "\';";
+            SqlCommand command = new SqlCommand(query, conn);
+            SqlDataReader reader = command.ExecuteReader();
+            int id = 0;
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32(0);
+            }
+
+            query = "select usertype from sotr where sotrID = " + id.ToString() + ";";
+            command = new SqlCommand(query, conn);
+            byte userType = 2;
+            reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    reader.Read();
+                    userType = reader.GetByte(0);
+                }
+            }
+
+            return userType;
+        }
     }
 
 }

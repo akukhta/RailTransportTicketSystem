@@ -8,32 +8,47 @@ namespace Server
 {
     class FunctionsHandler
     {
+        public enum Operations : byte
+        {
+            Login
+        }
+
+        private Database db;
+
+        public FunctionsHandler()
+        {
+            db = new Database();
+        }
+
         public List<byte> HandleRequest(List<byte> request)
         {
             byte func = request[0];
             request.RemoveAt(0);
             List<byte> answer = new List<byte>();
 
-            switch (func)
+            switch ((Operations)func)
             {
-                case 0:
+                case Operations.Login:
                     answer = Sign(request);
                     break;
 
-                case 1:
-                    answer = Sotr(request);
+                default:
                     break;
 
-                case 2:
-                    answer = Predpr(request);
-                    break;
+                //case 1:
+                //    answer = Sotr(request);
+                //    break;
 
-                case 3:
-                    answer = SotrPredpr(request);
-                    break;
+                //case 2:
+                //    answer = Predpr(request);
+                //    break;
 
-                case 4:
-                    break;
+                //case 3:
+                //    answer = SotrPredpr(request);
+                //    break;
+
+                //case 4:
+                //    break;
 
             }
             return answer;

@@ -31,7 +31,7 @@ namespace Client
             Ip = IPAddress.Parse(IpString);
             ServerEndPoint = new IPEndPoint(Ip, Port);
             ClientSocket = new Socket(Ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            ClientSocket.Bind(ServerEndPoint);
+            ClientSocket.Connect(ServerEndPoint);
         }
 
         private void SendToClient(byte[] Buffer)

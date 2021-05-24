@@ -17,6 +17,7 @@ namespace Server
         private List<Socket> connectedSockets;
         private Thread networkThread;
         private UIUpdater uIUpdater;
+        private FunctionsHandler functionsHandler;
 
         public Server(UIUpdater uIUpdater, string ipAddr = "127.0.0.1", int port = 5564)
         {
@@ -27,6 +28,7 @@ namespace Server
             connectedSockets = new List<Socket>();
             connectedSockets.Add(masterSocket);
             this.uIUpdater = uIUpdater;
+            functionsHandler = new FunctionsHandler();
         }
 
         public void start()
@@ -69,6 +71,8 @@ namespace Server
                         byte[] buffer = new byte[sockets[i].Available];
                         sockets[i].Receive(buffer);
                         uIUpdater.LogMessage(buffer.ToString());
+                        List<byte> answer = functionsHandler.HandleRequest(buffer.ToList());
+                        sockets[i].Send(answer.ToArray());
                     }
                 }
             }
