@@ -27,7 +27,7 @@ namespace Server
             q.ExecuteNonQuery();
         }
 
-        public byte Login(string password)
+        public User Login(string password)
         {
             string query = "select sotrID from sign where password = \'" + password + "\';";
             SqlCommand command = new SqlCommand(query, conn);
@@ -40,20 +40,37 @@ namespace Server
                 id = reader.GetInt32(0);
             }
 
-            query = "select usertype from sotr where sotrID = " + id.ToString() + ";";
-            command = new SqlCommand(query, conn);
-            uint userType = 2;
+            string userQuery = "select * from sotr where sotrID = " + id.ToString() + ";";
+            command = new SqlCommand(userQuery, conn);
             reader.Close();
             reader = command.ExecuteReader();
+
+            User user = null;
+
             if (reader.HasRows)
             {
 
                 reader.Read();
-                userType = Convert.ToUInt32(reader.GetInt32(0));   
+                
+                int userID = reader.GetInt32(0);
+                string name = reader.GetString(1);
+                string surname = reader.GetString(2);
+                string patronymic = reader.GetString(3);
+                string passportSeries = reader.GetString(4);
+                string passportNumber = reader.GetString(5);
+                string gender = reader.GetString(6);
+                DateTime birthday = reader.GetDateTime(7);
+                int usertype = reader.GetInt32(8);
+                string job = reader.GetString(9);
+                user = new User(true, usertype, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday);
             }
 
-            byte x = BitConverter.GetBytes(userType)[0];
-            return x;
+            else
+            {
+                user = new User(false);
+            }
+
+            return user;
         }
     }
 

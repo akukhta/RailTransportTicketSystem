@@ -10,8 +10,8 @@ namespace Client
 {
     public partial class Form2 : Form
     {
+        public User user;
         private ClientConnection client;
-        public ClientConnection.UserType user;
 
         public Form2(ref ClientConnection client)
         {
@@ -23,7 +23,7 @@ namespace Client
         {
             this.user = client.Login(textBox1.Text);
 
-            if (user == ClientConnection.UserType.Error)
+            if (!user.isValid)
             {
                 MessageBox.Show("Неверный идентификатор пользователя!");
                 textBox1.Text = "";
