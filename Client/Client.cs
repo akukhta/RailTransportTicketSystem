@@ -23,7 +23,8 @@ namespace Client
 
         public enum Operations : byte
         {
-            Login
+            Login, 
+            CreateRequest
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -63,6 +64,17 @@ namespace Client
             byte[] answer = ReceiveForClient();
 
             return User.deserialise(answer.ToList());
+        }
+        
+        /// <summary>
+        /// Only for test, for future the request has to be approved. But for now simple generation is also good.
+        /// </summary>
+        public void CreateRequest(BussinesTripInfo info)
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add((byte)Operations.CreateRequest);
+            bytes.AddRange(info.serialise());
+            SendToClient(bytes.ToArray());
         }
     }
 }

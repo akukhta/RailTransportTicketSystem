@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BussinesTripInfo.cs" />
     <Compile Include="DocumentGenerator.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Form1.cs">
@@ -66,6 +67,7 @@
     <Compile Include="Server.cs" />
     <Compile Include="UIUpdater.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="Utilites.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
