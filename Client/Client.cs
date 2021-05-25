@@ -50,7 +50,7 @@ namespace Client
             return Buffer;
         }
 
-        public UserType Login(string ID)
+        public User Login(string ID)
         {
             List<byte> buffer = new List<byte>();
             
@@ -62,21 +62,7 @@ namespace Client
             
             byte[] answer = ReceiveForClient();
 
-            switch (answer[0])
-            {
-                case 0:
-                    return UserType.DefaultUser;
-;
-                case 1:
-                    return UserType.Admin;
-
-                case 2:
-                    return UserType.Error;
-
-                default:
-                    return UserType.Error;
-            }
-        
+            return User.deserialise(answer.ToList());
         }
     }
 }
