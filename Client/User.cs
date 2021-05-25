@@ -54,41 +54,41 @@ namespace Client
             return buffer.ToArray();
         }
 
-        private static string readStringFromBuffer(List<byte> buffer)
-        {
-            int length = BitConverter.ToInt32(buffer.Take(4).ToArray(), 0);
-            buffer.RemoveRange(0, sizeof(int));
-            string result = Encoding.Default.GetString(buffer.Take(length).ToArray());
-            buffer.RemoveRange(0, length);
-            return result;
-        }
+        //private static string readStringFromBuffer(List<byte> buffer)
+        //{
+        //    int length = BitConverter.ToInt32(buffer.Take(4).ToArray(), 0);
+        //    buffer.RemoveRange(0, sizeof(int));
+        //    string result = Encoding.Default.GetString(buffer.Take(length).ToArray());
+        //    buffer.RemoveRange(0, length);
+        //    return result;
+        //}
 
-        private static int readIntFromBuffer(List<byte> buffer)
-        {
-            int val = BitConverter.ToInt32(buffer.Take(sizeof(int)).ToArray(), 0);
-            buffer.RemoveRange(0, sizeof(int));
-            return val;
-        }
+        //private static int readIntFromBuffer(List<byte> buffer)
+        //{
+        //    int val = BitConverter.ToInt32(buffer.Take(sizeof(int)).ToArray(), 0);
+        //    buffer.RemoveRange(0, sizeof(int));
+        //    return val;
+        //}
 
-        private static bool readBoolFromBuffer(List<byte> buffer)
-        {
-            bool val = BitConverter.ToBoolean(buffer.ToArray(), 0);
-            buffer.RemoveRange(0, sizeof(bool));
-            return val;
-        }
+        //private static bool readBoolFromBuffer(List<byte> buffer)
+        //{
+        //    bool val = BitConverter.ToBoolean(buffer.ToArray(), 0);
+        //    buffer.RemoveRange(0, sizeof(bool));
+        //    return val;
+        //}
 
         public static User deserialise(List<byte> buffer)
         {
-            bool isValid = readBoolFromBuffer(buffer);
-            int userType = readIntFromBuffer(buffer);
-            int userID = readIntFromBuffer(buffer);
-            string name = readStringFromBuffer(buffer);
-            string surname = readStringFromBuffer(buffer);
-            string patronymic = readStringFromBuffer(buffer);
-            string passportSeries = readStringFromBuffer(buffer);
-            string passportNumber = readStringFromBuffer(buffer);
-            string job = readStringFromBuffer(buffer);
-            string gender = readStringFromBuffer(buffer);
+            bool isValid = Utilites.readBoolFromBuffer(buffer);
+            int userType = Utilites.readIntFromBuffer(buffer);
+            int userID = Utilites.readIntFromBuffer(buffer);
+            string name = Utilites.readStringFromBuffer(buffer);
+            string surname = Utilites.readStringFromBuffer(buffer);
+            string patronymic = Utilites.readStringFromBuffer(buffer);
+            string passportSeries = Utilites.readStringFromBuffer(buffer);
+            string passportNumber = Utilites.readStringFromBuffer(buffer);
+            string job = Utilites.readStringFromBuffer(buffer);
+            string gender = Utilites.readStringFromBuffer(buffer);
             DateTime birthday = DateTime.FromBinary(BitConverter.ToInt64(buffer.ToArray(), 0));
 
             return new User(isValid, userType, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday);

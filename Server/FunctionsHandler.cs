@@ -10,7 +10,8 @@ namespace Server
     {
         public enum Operations : byte
         {
-            Login
+            Login,
+            CreateRequest
         }
 
         private Database db;
@@ -32,6 +33,10 @@ namespace Server
                     answer = Sign(request);
                     break;
 
+                case Operations.CreateRequest:
+                    answer = CreateRequest(request);
+                    break;
+                
                 default:
                     break;
 
@@ -61,6 +66,15 @@ namespace Server
             string password = Encoding.Default.GetString(buffer.ToArray());
             byte[] answer = db.Login(password).serialise();
             return answer.ToList();
+        }
+
+        private List<byte> CreateRequest(List<byte> buffer)
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add(0x00);
+            BussinesTripInfo info = BussinesTripInfo.deserialise(buffer);
+            DocumetGeneration.GenerateDocument(info);
+            return bytes;
         }
 
         private List<byte> Sotr(List<byte> buffer)

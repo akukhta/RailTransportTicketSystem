@@ -18,12 +18,12 @@ namespace Client
             Application.SetCompatibleTextRenderingDefault(false);
             ClientConnection client = new ClientConnection();
             Form2 loginForm = new Form2(ref client);
-            User user;
+            User user = null;
             Application.Run(loginForm);
             user = loginForm.user;
 
             if (user.isValid)
-                Application.Run(new Form1(ref client));
+                Application.Run(new Form1(ref client, ref user));
         }
     }
 }
