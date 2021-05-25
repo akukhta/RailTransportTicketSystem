@@ -57,9 +57,9 @@ namespace Server
         private List<byte> Sign(List<byte> buffer)
         {
             List<byte> answer = new List<byte>();
-            Int32 lengthOfPass = (BitConverter.ToInt32(answer.ToArray(),0));
-            answer.RemoveRange(0, sizeof(Int32));
-            string password = buffer.ToArray().ToString();
+            Int32 lengthOfPass = (BitConverter.ToInt32(buffer.ToArray(),0));
+            buffer.RemoveRange(0, sizeof(Int32));
+            string password = Encoding.Default.GetString(buffer.ToArray());
             answer.Add(db.Login(password));
             return answer;
         }

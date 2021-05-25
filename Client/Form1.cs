@@ -12,15 +12,18 @@ namespace Client
 {
     public partial class Form1 : Form
     {
+        private ClientConnection client;
+
         private void test()
         {
             ;
         }
 
-        public Form1()
+        public Form1(ref ClientConnection client)
         {
             InitializeComponent();
             test();
+            this.client = client;
         }
 
         
@@ -32,6 +35,11 @@ namespace Client
         private void button1_Click(object sender, EventArgs e)
         {
              
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
    

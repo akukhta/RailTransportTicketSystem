@@ -65,6 +65,7 @@ namespace Server
                         connectedSockets.Add(masterSocket.Accept());
                         uIUpdater.LogMessage((((IPEndPoint)connectedSockets.Last().RemoteEndPoint).Address.ToString() + " подключился!"));
                         uIUpdater.AddClient((((IPEndPoint)connectedSockets.Last().RemoteEndPoint).Address.ToString()));
+                        break;
                     }
                     else
                     {
@@ -72,6 +73,7 @@ namespace Server
                         sockets[i].Receive(buffer);
                         uIUpdater.LogMessage(buffer.ToString());
                         List<byte> answer = functionsHandler.HandleRequest(buffer.ToList());
+                        sockets[i].Send(BitConverter.GetBytes(answer.Count));
                         sockets[i].Send(answer.ToArray());
                     }
                 }

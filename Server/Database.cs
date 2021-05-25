@@ -42,18 +42,18 @@ namespace Server
 
             query = "select usertype from sotr where sotrID = " + id.ToString() + ";";
             command = new SqlCommand(query, conn);
-            byte userType = 2;
+            uint userType = 2;
+            reader.Close();
             reader = command.ExecuteReader();
             if (reader.HasRows)
             {
-                while (reader.Read())
-                {
-                    reader.Read();
-                    userType = reader.GetByte(0);
-                }
+
+                reader.Read();
+                userType = Convert.ToUInt32(reader.GetInt32(0));   
             }
 
-            return userType;
+            byte x = BitConverter.GetBytes(userType)[0];
+            return x;
         }
     }
 

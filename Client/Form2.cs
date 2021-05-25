@@ -13,7 +13,7 @@ namespace Client
         private ClientConnection client;
         public ClientConnection.UserType user;
 
-        public Form2(ClientConnection client)
+        public Form2(ref ClientConnection client)
         {
             InitializeComponent();
             this.client = client;

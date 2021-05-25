@@ -28,3 +28,6 @@ C:\Users\Aliaksei_Kukhta\Desktop\232\RailTransportTicketSystem-master\Server\obj
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\bin\Debug\Xceed.Document.NET.dll
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\bin\Debug\Xceed.Words.NET.dll
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Server\bin\Debug\Xceed.Document.NET.dll
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Server\bin\Debug\Xceed.Words.NET.dll
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Server\obj\Debug\Server.csproj.CopyComplete

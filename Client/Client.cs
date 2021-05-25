@@ -31,6 +31,7 @@ namespace Client
             Ip = IPAddress.Parse(IpString);
             ServerEndPoint = new IPEndPoint(Ip, Port);
             ClientSocket = new Socket(Ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            ClientSocket.Blocking = true;
             ClientSocket.Connect(ServerEndPoint);
         }
 
@@ -41,7 +42,10 @@ namespace Client
 
         private byte[] ReceiveForClient()
         {
-            byte[] Buffer = new byte[ClientSocket.Available];
+            byte[] packetSizeBuffer = new byte[4];
+            ClientSocket.Receive(packetSizeBuffer);
+            Int32 packetSize = BitConverter.ToInt32(packetSizeBuffer,0);
+            byte[] Buffer = new byte[packetSize];
             ClientSocket.Receive(Buffer);
             return Buffer;
         }
