@@ -27,6 +27,7 @@ namespace Client
             this.client = client;
             this.user = user;
             
+
             if (this.user.userType == 1)
             {
                 string fullName = user.job + " " + user.name + " " + user.surname + " " + user.patronymic;
@@ -45,7 +46,23 @@ namespace Client
 
         }
 
-        
+        /// <summary>
+        /// Проверяет введены ли все данные. Володя, доделай это.
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckUserInput()
+        {
+            if (comboBox1.Text == "")
+            {
+                MessageBox.Show("Не введено имя");
+                return false;
+            }
+
+
+
+            return true;
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -63,6 +80,9 @@ namespace Client
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (!CheckUserInput())
+                return;
+                
             string[] fullname = comboBox1.Text.Split(' ');
 
             BussinesTripInfo info = new BussinesTripInfo(fullname[0], fullname[1], fullname[2], comboBox2.Text,
