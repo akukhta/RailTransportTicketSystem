@@ -57,7 +57,30 @@ namespace Client
                 MessageBox.Show("Не введено имя");
                 return false;
             }
+            
+            if (comboBox2.Text == "")
+            {
+                MessageBox.Show("Отсутствует должность сотрудника");
+                return false;
+            }
+            
+            if (comboBox3.Text == "")
+            {
+                MessageBox.Show("Отсутствует путь командировки");
+                return false;
+            }
+            
+            if (richTextBox1.Text == "")
+            {
+                MessageBox.Show("Отсутствует причина командировки");
+                return false;
+            }
 
+            if (comboBox4.Text == "")
+            {
+                MessageBox.Show("Отсутствует ФИО отправителя");
+                return false;
+            }
 
 
             return true;
@@ -89,6 +112,16 @@ namespace Client
                 comboBox3.Text, richTextBox1.Text, comboBox4.Text, dateTimePicker1.Value, dateTimePicker2.Value);
 
             client.CreateRequest(info);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
    
