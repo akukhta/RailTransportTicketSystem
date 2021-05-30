@@ -24,7 +24,9 @@ namespace Client
         public enum Operations : byte
         {
             Login, 
-            CreateRequest
+            CreateRequest,
+            GetUsers,
+            GetFactories
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -51,6 +53,27 @@ namespace Client
             return Buffer;
         }
 
+
+        public List<User> GetUsers()
+        {
+            List<byte> buffer = new List<byte>();
+            List<User> users = new List<User>();
+            buffer.Add((byte)Operations.GetUsers);
+
+            SendToClient(buffer.ToArray());
+
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 usersCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            for (int i = 0; i < usersCount; i++)
+            {
+                users.Add(User.deserialise(answer));
+            }
+
+            return users;
+        }
+
         public User Login(string ID)
         {
             List<byte> buffer = new List<byte>();
@@ -69,12 +92,33 @@ namespace Client
         /// <summary>
         /// Only for test, for future the request has to be approved. But for now simple generation is also good.
         /// </summary>
-        public void CreateRequest(BussinesTripInfo info)
+        public List<byte> CreateRequest(BussinesTripInfo info)
         {
             List<byte> bytes = new List<byte>();
             bytes.Add((byte)Operations.CreateRequest);
             bytes.AddRange(info.serialise());
             SendToClient(bytes.ToArray());
+            List<byte> file = ReceiveForClient().ToList();
+            return file;
+        }
+
+        public List<FactoryInfo> GetFactories()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add((byte)Operations.GetFactories);
+            SendToClient(bytes.ToArray());
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 FactoriesCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            List<FactoryInfo> factories = new List<FactoryInfo>();
+
+            for (int i = 0; i < FactoriesCount; i++)
+            {
+                factories.Add(FactoryInfo.deserialise(answer));
+            }
+
+            return factories;
         }
     }
 }

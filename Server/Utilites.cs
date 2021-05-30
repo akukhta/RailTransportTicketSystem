@@ -30,5 +30,6 @@ namespace Server
             buffer.RemoveRange(0, sizeof(bool));
             return val;
         }
+
     }
 }

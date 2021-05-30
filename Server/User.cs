@@ -90,7 +90,7 @@ namespace Server
             string job = Utilites.readStringFromBuffer(buffer);
             string gender = Utilites.readStringFromBuffer(buffer);
             DateTime birthday = DateTime.FromBinary(BitConverter.ToInt64(buffer.ToArray(), 0));
-
+            buffer.RemoveRange(0, sizeof(Int64));
             return new User(isValid, userType, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday);
         }
     }

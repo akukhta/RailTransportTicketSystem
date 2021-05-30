@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Server
@@ -11,7 +12,9 @@ namespace Server
         public enum Operations : byte
         {
             Login,
-            CreateRequest
+            CreateRequest,
+            GetUsersFromDB,
+            GetFactories
         }
 
         private Database db;
@@ -36,7 +39,14 @@ namespace Server
                 case Operations.CreateRequest:
                     answer = CreateRequest(request);
                     break;
-                
+                    
+                case Operations.GetUsersFromDB:
+                    answer = GetEmployees(request);
+                    break;
+
+                case Operations.GetFactories:
+                    answer = GetFactories();
+                    break;
                 default:
                     break;
 
@@ -71,25 +81,44 @@ namespace Server
         private List<byte> CreateRequest(List<byte> buffer)
         {
             List<byte> bytes = new List<byte>();
-            bytes.Add(0x00);
             BussinesTripInfo info = BussinesTripInfo.deserialise(buffer);
-            DocumetGeneration.GenerateDocument(info);
+            string filename = DocumetGeneration.GenerateDocument(info);
+
+            bytes = File.ReadAllBytes(filename).ToList();
+
             return bytes;
         }
 
-        private List<byte> Sotr(List<byte> buffer)
+        private List<byte> GetEmployees(List<byte> buffer)
         {
-            return new List<byte>();
+            List<byte> users = new List<byte>();
+
+            List<User> _users = db.getUsers();
+            Int32 usersCount = _users.Count;
+            users.AddRange(BitConverter.GetBytes(usersCount));
+
+            for (int i = 0; i < _users.Count; i++)
+            {
+                users.AddRange(_users[i].serialise());
+            }
+
+            return users.ToList();
         }
 
-        private List<byte> Predpr(List<byte> buffer)
+        private List<byte> GetFactories()
         {
-            return new List<byte>();
-        }
+            List<byte> answer = new List<byte>();
 
-        private List<byte> SotrPredpr(List<byte> buffer)
-        {
-            return new List<byte>();
+            List<FactoryInfo> factories = db.GetFactories();
+            Int32 factoriesCount = factories.Count;
+            answer.AddRange(BitConverter.GetBytes(factoriesCount));
+
+            for (int i = 0; i < factories.Count; i++)
+            {
+                answer.AddRange(factories[i].serialise());
+            }
+
+            return answer;
         }
 
     }

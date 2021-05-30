@@ -70,8 +70,69 @@ namespace Server
                 user = new User(false);
             }
 
+
+            reader.Close();
+
             return user;
         }
+
+        public List<FactoryInfo> GetFactories()
+        {
+            List<FactoryInfo> factories = new List<FactoryInfo>();
+
+            string query = "select * from predpr;";
+            SqlCommand command = new SqlCommand(query, conn);
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (!reader.HasRows)
+            {
+                return factories;
+            }
+
+            while (reader.Read())
+            {
+                int predpr = reader.GetInt32(0);
+                string name = reader.GetString(1);
+                string address = reader.GetString(2);
+
+                factories.Add(new FactoryInfo(predpr, name, address));
+            }
+
+            reader.Close();
+            return factories;
+        }
+
+        public List<User> getUsers()
+        {
+            List<User> users = new List<User>();
+
+            string query = "select * from sotr;";
+            SqlCommand command = new SqlCommand(query, conn);
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (!reader.HasRows)
+                return users;
+
+            while (reader.Read())
+            { 
+                int userID = reader.GetInt32(0);
+                string name = reader.GetString(1);
+                string surname = reader.GetString(2);
+                string patronymic = reader.GetString(3);
+                string passportSeries = reader.GetString(4);
+                string passportNumber = reader.GetString(5);
+                string gender = reader.GetString(6);
+                DateTime birthday = reader.GetDateTime(7);
+                int usertype = reader.GetInt32(8);
+                string job = reader.GetString(9);
+                User user = new User(true, usertype, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday);
+                users.Add(user);
+            }
+
+            reader.Close();
+            return users;
+        }
+
     }
 
 }
