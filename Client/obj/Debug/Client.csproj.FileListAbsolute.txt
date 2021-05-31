@@ -31,3 +31,6 @@ C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Client\obj\Debug\Clie
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Client\obj\Debug\Client.exe
 C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Client\obj\Debug\Client.pdb
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.UpdatingForm.resources
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.UpdatingFormEmployees.resources
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.UpdatingFactoriesForm.resources

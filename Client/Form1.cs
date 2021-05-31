@@ -17,7 +17,9 @@ namespace Client
         private User user;
         private List<User> loadedUsers = null;
         private List<FactoryInfo> LoadedFactories = null;
+        private List<EmployeesFactoryInfo> LoadedFactoriesEmployees = null;
         private FactoryInfo currentDestinationPlace = null;
+        private Form subForm = null;
 
         private void test()
         {
@@ -34,6 +36,9 @@ namespace Client
 
             getFactories();
             getUsers();
+            getFactoriesEmployees();
+
+            UpdateSubPanel(0);
 
             comboBox5.SelectedIndex = 0;
 
@@ -95,6 +100,40 @@ namespace Client
             return true;
         }
 
+        private void UpdateSubPanel(int type)
+        {
+            if (subForm != null)
+            {
+                this.panel3.Controls.Remove(subForm);
+                subForm.Close();
+            }
+
+            switch (type)
+            {
+                case 0:
+                    subForm = new UpdatingFormEmployees(loadedUsers);
+                    break;
+
+                case 1:
+                    subForm = new UpdatingFactoriesForm(LoadedFactories);
+                    break;
+
+                case 2:
+                    subForm = new UpdatingForm(LoadedFactoriesEmployees);
+                    break;
+
+                default:
+                    break;
+            }
+
+            subForm.TopLevel = false;
+            subForm.AutoScroll = true;
+            this.panel3.Size = subForm.Size;
+            subForm.FormBorderStyle = FormBorderStyle.None;
+            this.panel3.Controls.Add(subForm);
+            subForm.Show();
+        }
+
         private string findUsersJobs(string name)
         {
             for (int i = 0; i < loadedUsers.Count; i++)
@@ -118,6 +157,13 @@ namespace Client
             List<FactoryInfo> factories = client.GetFactories();
             LoadFactories(factories);
             LoadedFactories = factories;
+        }
+
+        private void getFactoriesEmployees()
+        {
+            List<EmployeesFactoryInfo> employeesFactories = client.GetEmployeesFactories();
+            LoadFactoriesEmployees(employeesFactories);
+            LoadedFactoriesEmployees = employeesFactories;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -224,8 +270,25 @@ namespace Client
 
         }
 
+        private void LoadFactoriesEmployees(List<EmployeesFactoryInfo> employeesFactoryInfos)
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.ColumnCount = 2;
+            dataGridView1.RowCount = employeesFactoryInfos.Count;
+            dataGridView1.Columns[0].HeaderText = "ID сотрудника";
+            dataGridView1.Columns[1].HeaderText = "ID предприятия";
+
+            for (int i = 0; i < employeesFactoryInfos.Count; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = employeesFactoryInfos[i].UserID;
+                dataGridView1.Rows[i].Cells[1].Value = employeesFactoryInfos[i].FactoryID;
+            }
+        }
+
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdateSubPanel(comboBox5.SelectedIndex);
+
             switch(comboBox5.SelectedIndex)
             {
                 case 0:
@@ -233,6 +296,9 @@ namespace Client
                     break;
                 case 1:
                     getFactories();
+                    break;
+                case 2:
+                    getFactoriesEmployees();
                     break;
                 default:
                     break;

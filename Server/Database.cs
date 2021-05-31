@@ -133,6 +133,28 @@ namespace Server
             return users;
         }
 
+        public List<EmployeesFactoryInfo> GetEmployeesFactories()
+        {
+            List<EmployeesFactoryInfo> employeesFactoryInfos = new List<EmployeesFactoryInfo>();
+
+            string query = "select * from sotrpredpr;";
+            SqlCommand command = new SqlCommand(query, conn);
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (!reader.HasRows)
+                return employeesFactoryInfos;
+
+            while(reader.Read())
+            {
+                int UserID = reader.GetInt32(0);
+                int FactoryID = reader.GetInt32(1);
+                employeesFactoryInfos.Add(new EmployeesFactoryInfo(UserID, FactoryID));
+            }
+
+            reader.Close();
+            return employeesFactoryInfos;
+        }
+
     }
 
 }

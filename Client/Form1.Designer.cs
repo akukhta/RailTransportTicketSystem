@@ -59,6 +59,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -80,20 +81,21 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(0, -5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(734, 424);
+            this.tabControl1.Size = new System.Drawing.Size(980, 468);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel3);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(726, 398);
+            this.tabPage1.Size = new System.Drawing.Size(972, 442);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Редактирование данных";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -103,7 +105,7 @@
             this.panel2.Controls.Add(this.comboBox5);
             this.panel2.Location = new System.Drawing.Point(601, 7);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(119, 159);
+            this.panel2.Size = new System.Drawing.Size(365, 37);
             this.panel2.TabIndex = 13;
             // 
             // comboBox5
@@ -111,10 +113,11 @@
             this.comboBox5.FormattingEnabled = true;
             this.comboBox5.Items.AddRange(new object[] {
             "Сотрудники",
-            "Предприятия"});
+            "Предприятия",
+            "Сотрудник-Предприятие"});
             this.comboBox5.Location = new System.Drawing.Point(3, 3);
             this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(113, 21);
+            this.comboBox5.Size = new System.Drawing.Size(359, 21);
             this.comboBox5.TabIndex = 0;
             this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
             // 
@@ -123,7 +126,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(8, 6);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(586, 382);
+            this.dataGridView1.Size = new System.Drawing.Size(586, 430);
             this.dataGridView1.TabIndex = 12;
             // 
             // tabPage2
@@ -395,14 +398,21 @@
             this.dataGridView3.Size = new System.Drawing.Size(537, 317);
             this.dataGridView3.TabIndex = 0;
             // 
+            // panel3
+            // 
+            this.panel3.Location = new System.Drawing.Point(604, 51);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(362, 385);
+            this.panel3.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 422);
+            this.ClientSize = new System.Drawing.Size(982, 510);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "RailTransportTicketSystem";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -456,6 +466,7 @@
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Panel panel3;
     }
 }
 

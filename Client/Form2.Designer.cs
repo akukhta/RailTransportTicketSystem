@@ -94,7 +94,7 @@
             this.ClientSize = new System.Drawing.Size(248, 81);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "Окно входа";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

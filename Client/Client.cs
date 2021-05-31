@@ -26,7 +26,8 @@ namespace Client
             Login, 
             CreateRequest,
             GetUsers,
-            GetFactories
+            GetFactories,
+            GetEmployeesFactories
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -119,6 +120,25 @@ namespace Client
             }
 
             return factories;
+        }
+
+        public List<EmployeesFactoryInfo> GetEmployeesFactories()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add((byte)Operations.GetEmployeesFactories);
+            SendToClient(bytes.ToArray());
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 employeesFactoriesCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            List<EmployeesFactoryInfo> employeesFactories = new List<EmployeesFactoryInfo>();
+
+            for (int i = 0; i < employeesFactoriesCount; i++)
+            {
+                employeesFactories.Add(EmployeesFactoryInfo.deserialise(answer));
+            }
+
+            return employeesFactories;
         }
     }
 }

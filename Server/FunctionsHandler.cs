@@ -14,7 +14,8 @@ namespace Server
             Login,
             CreateRequest,
             GetUsersFromDB,
-            GetFactories
+            GetFactories,
+            GetEmployesFactories
         }
 
         private Database db;
@@ -46,6 +47,9 @@ namespace Server
 
                 case Operations.GetFactories:
                     answer = GetFactories();
+                    break;
+                case Operations.GetEmployesFactories:
+                    answer = GetEmployeesFactories();
                     break;
                 default:
                     break;
@@ -116,6 +120,22 @@ namespace Server
             for (int i = 0; i < factories.Count; i++)
             {
                 answer.AddRange(factories[i].serialise());
+            }
+
+            return answer;
+        }
+
+        private List<byte> GetEmployeesFactories()
+        {
+            List<byte> answer = new List<byte>();
+
+            List<EmployeesFactoryInfo> employeesFactoryInfos = db.GetEmployeesFactories();
+            Int32 count = employeesFactoryInfos.Count;
+            answer.AddRange(BitConverter.GetBytes(count));
+
+            for (int i = 0; i < employeesFactoryInfos.Count; i++)
+            {
+                answer.AddRange(employeesFactoryInfos[i].serialise());
             }
 
             return answer;
