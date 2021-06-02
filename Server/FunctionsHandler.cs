@@ -16,7 +16,8 @@ namespace Server
             GetUsersFromDB,
             GetFactories,
             GetEmployesFactories,
-            GetDocuments
+            GetDocuments,
+            AddFactory
         }
 
         private Database db;
@@ -54,6 +55,11 @@ namespace Server
                     break;
                 case Operations.GetDocuments:
                     answer = GetDocuments();
+                    break;
+                case Operations.AddFactory:
+                    AddFactory(request);
+                    answer = new List<byte>();
+                    answer.Add(0x0);
                     break;
                 default:
                     break;
@@ -162,6 +168,23 @@ namespace Server
             }
 
             return answer;
+        }
+
+        private void AddFactory(List<byte> buffer)
+        {
+            int userType = Utilites.readIntFromBuffer(buffer);
+            int predprID = Utilites.readIntFromBuffer(buffer);
+            FactoryInfo newFactory = FactoryInfo.deserialise(buffer);
+
+            if (userType == 1)
+            {
+                db.AddToTable(newFactory, "Предприятия");
+            }
+            else
+            {
+                db.AddToChangesTable(null, newFactory, 0, "Предприятия", predprID);
+            }
+
         }
     }
 }

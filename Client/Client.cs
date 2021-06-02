@@ -28,7 +28,8 @@ namespace Client
             GetUsers,
             GetFactories,
             GetEmployeesFactories,
-            GetDocuments
+            GetDocuments,
+            AddFactory
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -140,6 +141,18 @@ namespace Client
             }
 
             return employeesFactories;
+        }
+
+
+        public void AddFactory(User user,FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.AddFactory);
+            buffer.AddRange(BitConverter.GetBytes(user.userType));
+            buffer.AddRange(BitConverter.GetBytes(user.factoryID));
+            buffer.AddRange(info.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
         }
 
         public List<BussinesTripInfo> GetDocuments()

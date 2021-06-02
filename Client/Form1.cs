@@ -31,7 +31,7 @@ namespace Client
         {
             InitializeComponent();
             test();
-
+            fake();
             this.client = client;
             this.user = user;
 
@@ -117,7 +117,7 @@ namespace Client
                     break;
 
                 case 1:
-                    subForm = new UpdatingFactoriesForm(LoadedFactories);
+                    subForm = new UpdatingFactoriesForm(LoadedFactories, this);
                     break;
 
                 case 2:
@@ -207,6 +207,12 @@ namespace Client
 
 
         }
+
+        public void AddFactory(FactoryInfo info)
+        {
+            client.AddFactory(user, info);
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -355,6 +361,40 @@ namespace Client
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentDestinationPlace = LoadedFactories[comboBox3.SelectedIndex];
+        }
+
+        private void fake()
+        {
+            dataGridView4.ColumnCount = 3;
+            dataGridView4.Columns[0].HeaderText = "ID";
+            dataGridView4.Columns[1].HeaderText = "Имя таблицы";
+            dataGridView4.Columns[2].HeaderText = "Тип";
+
+            DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
+            checkColumn.Name = "X";
+            checkColumn.HeaderText = "Подтвердить";
+            checkColumn.Width = 50;
+            checkColumn.ReadOnly = false;
+            checkColumn.FillWeight = 10; //if the datagridview is resized (on form resize) the checkbox won't take up too much; value is relative to the other columns' fill values
+            dataGridView4.Columns.Add(checkColumn);
+
+            dataGridView4.RowCount = 1;
+            
+            dataGridView4[0, 0].Value = "1";
+            dataGridView4[1, 0].Value = "Предприятия";
+            dataGridView4[2, 0].Value = "Добавить";
+
+            dataGridView3.ColumnCount = 2;
+            dataGridView3.Columns[0].HeaderText = "ID";
+            dataGridView3.Columns[1].HeaderText = "Имя таблицы";
+            dataGridView3.RowCount = 3;
+            dataGridView3[0, 0].Value = "ID";
+            dataGridView3[1, 0].Value = "228";
+            dataGridView3[0, 1].Value = "Название";
+            dataGridView3[1, 1].Value = "ООО";
+            dataGridView3[0, 2].Value = "Адрес";
+            dataGridView3[1, 2].Value = "Ляховичи";
+
         }
     }
    

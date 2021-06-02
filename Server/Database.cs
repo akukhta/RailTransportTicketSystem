@@ -62,16 +62,27 @@ namespace Server
                 DateTime birthday = reader.GetDateTime(7);
                 int usertype = reader.GetInt32(8);
                 string job = reader.GetString(9);
-                user = new User(true, usertype, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday);
+                reader.Close();
+                string factoryQuery = "select * from sotrpredpr where sotrID = " + userID + ";";
+                SqlCommand subCommand = new SqlCommand(factoryQuery, conn);
+                var FactoryReader = subCommand.ExecuteReader();
+                int factoryID = 0;
+
+                if (FactoryReader.HasRows)
+                {
+                    FactoryReader.Read();
+                    factoryID = FactoryReader.GetInt32(1);
+                }
+                
+                FactoryReader.Close();
+                user = new User(true, usertype, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday, factoryID);
             }
 
             else
             {
                 user = new User(false);
+                reader.Close();
             }
-
-
-            reader.Close();
 
             return user;
         }
@@ -80,7 +91,7 @@ namespace Server
         {
             List<FactoryInfo> factories = new List<FactoryInfo>();
 
-            string query = "select * from predpr;";
+            string query = "select * from predpr where isValid = 1;";
             SqlCommand command = new SqlCommand(query, conn);
             SqlDataReader reader = command.ExecuteReader();
 
@@ -203,6 +214,41 @@ namespace Server
 
             SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
+        }
+
+        public void AddToTable(Object newValue, string tableName)
+        {
+            string query = null;
+
+            if (tableName == "Предприятия")
+            {
+                FactoryInfo factory = (FactoryInfo)newValue;
+                query = "insert into predpr(predprID, name, address, isValid) values(" + factory.predprID + ", \'" + factory.name
+                    + "\', \'" + factory.address + "\', 1);";
+            }
+
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+        }
+
+        public void AddToChangesTable(Object oldValue, Object newValue, int operationsType, string table, int prepdrID)
+        {
+            if (table == "Предприятия")
+            {
+                FactoryInfo oldV = (FactoryInfo)oldValue;
+                FactoryInfo newV = (FactoryInfo)newValue;
+
+                if (operationsType == 0)
+                {
+                    AddToTable(newV, table);
+                    string query = "insert into TablesChanges(newValue, type, predprID, tableName) values(" + newV.predprID +
+                        ", 0, " + prepdrID + ",\'" + table + "\', 0);";
+                    SqlCommand command = new SqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                }
+
+
+            }
         }
 
     }

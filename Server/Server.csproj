@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BussinesTripInfo.cs" />
+    <Compile Include="Changes.cs" />
     <Compile Include="DocumentGenerator.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Employees.cs" />

@@ -8,8 +8,8 @@ namespace Server
 {
     class FactoryInfo
     {
-        int predprID;
-        string name, address;
+        public int predprID;
+        public string name, address;
 
         public FactoryInfo(int predprID, string name, string address)
         {

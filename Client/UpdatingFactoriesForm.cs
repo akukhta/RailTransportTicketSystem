@@ -14,8 +14,9 @@ namespace Client
     {
         private List<FactoryInfo> factories = null;
         private FactoryInfo currentFactory = null;
+        private Form1 parent = null;
 
-        public UpdatingFactoriesForm(List<FactoryInfo> factories)
+        public UpdatingFactoriesForm(List<FactoryInfo> factories, Form1 parent)
         {
             InitializeComponent();
             this.factories = factories;
@@ -29,6 +30,8 @@ namespace Client
                 comboBox2.Items.Add(factories[i].name);
                 comboBox3.Items.Add(factories[i].address);
             }
+
+            this.parent = parent;
         }
 
         private void comboBoxesSelected(object sender, EventArgs e)
@@ -47,6 +50,15 @@ namespace Client
             comboBox2.SelectedIndexChanged += comboBoxesSelected;
             comboBox3.SelectedIndexChanged += comboBoxesSelected;
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int factoryID = Convert.ToInt32(comboBox1.Text);
+            string name = comboBox2.Text;
+            string address = comboBox3.Text;
+            FactoryInfo newFactory = new FactoryInfo(factoryID, name, address);
+            parent.AddFactory(newFactory);
         }
     }
 }
