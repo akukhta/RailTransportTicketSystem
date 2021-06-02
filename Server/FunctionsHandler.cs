@@ -15,7 +15,8 @@ namespace Server
             CreateRequest,
             GetUsersFromDB,
             GetFactories,
-            GetEmployesFactories
+            GetEmployesFactories,
+            GetDocuments
         }
 
         private Database db;
@@ -50,6 +51,9 @@ namespace Server
                     break;
                 case Operations.GetEmployesFactories:
                     answer = GetEmployeesFactories();
+                    break;
+                case Operations.GetDocuments:
+                    answer = GetDocuments();
                     break;
                 default:
                     break;
@@ -86,6 +90,9 @@ namespace Server
         {
             List<byte> bytes = new List<byte>();
             BussinesTripInfo info = BussinesTripInfo.deserialise(buffer);
+
+            db.AddDocument(info);
+
             string filename = DocumetGeneration.GenerateDocument(info);
 
             bytes = File.ReadAllBytes(filename).ToList();
@@ -141,5 +148,20 @@ namespace Server
             return answer;
         }
 
+        private List<byte> GetDocuments()
+        {
+            List<byte> answer = new List<byte>();
+
+            List<BussinesTripInfo> documents = db.GetDocuments();
+            Int32 count = documents.Count;
+            answer.AddRange(BitConverter.GetBytes(count));
+
+            for (int i = 0; i < documents.Count; i++)
+            {
+                answer.AddRange(documents[i].serialise());
+            }
+
+            return answer;
+        }
     }
 }

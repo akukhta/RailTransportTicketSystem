@@ -86,6 +86,7 @@ namespace Server
 
             if (!reader.HasRows)
             {
+                reader.Close();
                 return factories;
             }
 
@@ -111,7 +112,10 @@ namespace Server
             SqlDataReader reader = command.ExecuteReader();
 
             if (!reader.HasRows)
+            {
+                reader.Close();
                 return users;
+            }
 
             while (reader.Read())
             { 
@@ -142,7 +146,10 @@ namespace Server
             SqlDataReader reader = command.ExecuteReader();
 
             if (!reader.HasRows)
+            {
+                reader.Close();
                 return employeesFactoryInfos;
+            }
 
             while(reader.Read())
             {
@@ -153,6 +160,49 @@ namespace Server
 
             reader.Close();
             return employeesFactoryInfos;
+        }
+
+        public List<BussinesTripInfo> GetDocuments()
+        {
+            List<BussinesTripInfo> documents = new List<BussinesTripInfo>();
+
+            string query = "select * from changes;";
+            SqlCommand command = new SqlCommand(query, conn);
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (!reader.HasRows)
+            {
+                reader.Close();
+                return documents;
+            }
+
+            while (reader.Read())
+            {
+                string name = reader.GetString(0);
+                string surname = reader.GetString(1);
+                string patronymic = reader.GetString(2);
+                DateTime start = reader.GetDateTime(3);
+                DateTime end = reader.GetDateTime(4);
+                string destinationPlace = reader.GetString(5);
+                string reason = reader.GetString(6);
+                string sender = reader.GetString(7);
+
+                documents.Add(new BussinesTripInfo(name, surname, patronymic, "", destinationPlace, reason, sender, start, end));
+            }
+
+            reader.Close();
+            return documents;
+        }
+
+        public void AddDocument(BussinesTripInfo info)
+        {
+            string query = "insert into changes (name, surname, patronymic," +
+                "startdate, enddate, destinationPlace, reason, sender) values (\'" + info.name + "\', \'" + info.surname + "\', \'" + info.patronymic +
+                "\',\'" + info.from.ToString("yyyy-MM-dd") + "\',\'" + info.to.ToString("yyyy-MM-dd") + "\',\'" +
+                info.destinationPlace + "\', \'" + info.reason + "\',\'" + info.fullNameOfSender + "\');";
+
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
         }
 
     }

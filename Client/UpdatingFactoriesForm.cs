@@ -19,7 +19,10 @@ namespace Client
         {
             InitializeComponent();
             this.factories = factories;
-            
+
+            if (factories.Count <= 0)
+                return;
+
             for (int i = 0; i < factories.Count; i++)
             {
                 comboBox1.Items.Add(factories[i].predprID);

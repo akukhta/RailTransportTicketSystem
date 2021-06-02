@@ -18,6 +18,7 @@ namespace Client
         private List<User> loadedUsers = null;
         private List<FactoryInfo> LoadedFactories = null;
         private List<EmployeesFactoryInfo> LoadedFactoriesEmployees = null;
+        private List<BussinesTripInfo> loadedDocuments = null;
         private FactoryInfo currentDestinationPlace = null;
         private Form subForm = null;
 
@@ -37,6 +38,7 @@ namespace Client
             getFactories();
             getUsers();
             getFactoriesEmployees();
+            getDocuments();
 
             UpdateSubPanel(0);
 
@@ -121,7 +123,9 @@ namespace Client
                 case 2:
                     subForm = new UpdatingForm(LoadedFactoriesEmployees);
                     break;
-
+                case 3:
+                    subForm = new DocumentsFilter(loadedDocuments, this);
+                    break;
                 default:
                     break;
             }
@@ -166,6 +170,43 @@ namespace Client
             LoadedFactoriesEmployees = employeesFactories;
         }
 
+        private void getDocuments()
+        {
+            List<BussinesTripInfo> documents = client.GetDocuments();
+            LoadDocuments(documents);
+            loadedDocuments = documents;
+        }
+
+        public void LoadDocuments(List<BussinesTripInfo> documents)
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+            dataGridView1.ColumnCount = 6;
+
+            dataGridView1.Columns[0].HeaderText = "ФИО";
+            dataGridView1.Columns[1].HeaderText = "Дата прибытия";
+            dataGridView1.Columns[2].HeaderText = "Дата отправления";
+            dataGridView1.Columns[3].HeaderText = "Место отправления";
+            dataGridView1.Columns[4].HeaderText = "Причина";
+            dataGridView1.Columns[5].HeaderText = "Отправитель";
+
+            if (documents.Count == 0)
+                return;
+
+            dataGridView1.RowCount = documents.Count;
+
+            for (int i = 0; i < documents.Count; i++)
+            {
+                dataGridView1.Rows[i].Cells[0].Value = documents[i].name + " " + documents[i].surname + " " + documents[i].patronymic;
+                dataGridView1.Rows[i].Cells[1].Value = documents[i].from.ToString("dd-MM-yyyy");
+                dataGridView1.Rows[i].Cells[2].Value = documents[i].to.ToString("dd-MM-yyyy");
+                dataGridView1.Rows[i].Cells[3].Value = documents[i].destinationPlace;
+                dataGridView1.Rows[i].Cells[4].Value = documents[i].reason;
+                dataGridView1.Rows[i].Cells[5].Value = documents[i].fullNameOfSender;
+            }
+
+
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -218,6 +259,7 @@ namespace Client
         {
             comboBox1.Items.Clear();
             dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
             dataGridView1.ColumnCount = 10;
             dataGridView1.RowCount = users.Count;
             dataGridView1.Columns[0].HeaderText = "ID сотрудника";
@@ -253,6 +295,7 @@ namespace Client
         {
             comboBox3.Items.Clear();
             dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
             dataGridView1.ColumnCount = 3;
             dataGridView1.RowCount = factories.Count;
             dataGridView1.Columns[0].HeaderText = "ID предприятия";
@@ -273,6 +316,7 @@ namespace Client
         private void LoadFactoriesEmployees(List<EmployeesFactoryInfo> employeesFactoryInfos)
         {
             dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
             dataGridView1.ColumnCount = 2;
             dataGridView1.RowCount = employeesFactoryInfos.Count;
             dataGridView1.Columns[0].HeaderText = "ID сотрудника";
@@ -299,6 +343,9 @@ namespace Client
                     break;
                 case 2:
                     getFactoriesEmployees();
+                    break;
+                case 3:
+                    getDocuments();
                     break;
                 default:
                     break;

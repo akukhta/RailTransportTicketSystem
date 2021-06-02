@@ -52,6 +52,12 @@
   <ItemGroup>
     <Compile Include="BussinesTripInfo.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="DocumentsFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DocumentsFilter.Designer.cs">
+      <DependentUpon>DocumentsFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeesFactoryInfo.cs" />
     <Compile Include="FactoryInfo.cs" />
     <Compile Include="Form1.cs">
@@ -88,6 +94,9 @@
     </Compile>
     <Compile Include="User.cs" />
     <Compile Include="Utilites.cs" />
+    <EmbeddedResource Include="DocumentsFilter.resx">
+      <DependentUpon>DocumentsFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

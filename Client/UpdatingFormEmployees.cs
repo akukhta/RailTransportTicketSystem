@@ -20,6 +20,9 @@ namespace Client
             InitializeComponent();
             this.users = users;
 
+            if (users.Count <= 0)
+                return;
+
             for (int i = 0; i < users.Count; i++)
             {
                 comboBox1.Items.Add(users[i].userID);
@@ -31,6 +34,11 @@ namespace Client
                 comboBox8.Items.Add(users[i].userType == 0 ? "Пользователь" : "Администратор");
                 comboBox9.Items.Add(users[i].job);
             }
+        }
+
+        private bool CheckUserInput()
+        {
+            return false;
         }
 
         private void BoxesChanged(object sender, EventArgs e)

@@ -34,3 +34,4 @@ C:\Users\Aliaksei_Kukhta\Desktop\RailTransportTicketSystem\Client\obj\Debug\Clie
 C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.UpdatingForm.resources
 C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.UpdatingFormEmployees.resources
 C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.UpdatingFactoriesForm.resources
+C:\Users\User\Desktop\diplom\RailTransportTicketSystem\Client\obj\Debug\Client.DocumentsFilter.resources

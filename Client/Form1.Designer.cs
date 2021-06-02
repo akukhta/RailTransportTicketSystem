@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -59,7 +60,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -100,6 +100,13 @@
             this.tabPage1.Text = "Редактирование данных";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // panel3
+            // 
+            this.panel3.Location = new System.Drawing.Point(604, 51);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(362, 385);
+            this.panel3.TabIndex = 14;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.comboBox5);
@@ -114,7 +121,8 @@
             this.comboBox5.Items.AddRange(new object[] {
             "Сотрудники",
             "Предприятия",
-            "Сотрудник-Предприятие"});
+            "Сотрудник-Предприятие",
+            "Командировочные удостоверения"});
             this.comboBox5.Location = new System.Drawing.Point(3, 3);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(359, 21);
@@ -135,7 +143,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(726, 398);
+            this.tabPage2.Size = new System.Drawing.Size(972, 442);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Командировочное удостоверение";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -248,9 +256,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 114);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(126, 13);
+            this.label4.Size = new System.Drawing.Size(109, 13);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Должность сотрудника";
+            this.label4.Text = "Срок командировки";
             // 
             // label3
             // 
@@ -332,7 +340,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(726, 398);
+            this.tabPage3.Size = new System.Drawing.Size(972, 442);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "История изменений";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -351,7 +359,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(726, 398);
+            this.tabPage4.Size = new System.Drawing.Size(972, 442);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Активные запросы";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -397,13 +405,6 @@
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(537, 317);
             this.dataGridView3.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.Location = new System.Drawing.Point(604, 51);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(362, 385);
-            this.panel3.TabIndex = 14;
             // 
             // Form1
             // 

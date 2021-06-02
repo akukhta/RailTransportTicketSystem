@@ -27,7 +27,8 @@ namespace Client
             CreateRequest,
             GetUsers,
             GetFactories,
-            GetEmployeesFactories
+            GetEmployeesFactories,
+            GetDocuments
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -139,6 +140,25 @@ namespace Client
             }
 
             return employeesFactories;
+        }
+
+        public List<BussinesTripInfo> GetDocuments()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add((byte)Operations.GetDocuments);
+            SendToClient(bytes.ToArray());
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 documentsCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            List<BussinesTripInfo> documents = new List<BussinesTripInfo>();
+
+            for (int i = 0; i < documentsCount; i++)
+            {
+                documents.Add(BussinesTripInfo.deserialise(answer));
+            }
+
+            return documents;
         }
     }
 }

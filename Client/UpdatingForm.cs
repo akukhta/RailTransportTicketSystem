@@ -20,6 +20,9 @@ namespace Client
             InitializeComponent();
 
             this.employeesFactoryInfos = employeesFactories;
+
+            if (employeesFactories.Count <= 0)
+                return;
          
             for (int i = 0; i < employeesFactoryInfos.Count; i++)
             {

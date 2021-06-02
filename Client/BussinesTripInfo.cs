@@ -49,7 +49,7 @@ namespace Client
             return buffer.ToArray();
         }
 
-        public BussinesTripInfo deserialise(List<byte> buffer)
+        public static BussinesTripInfo deserialise(List<byte> buffer)
         {
             string name = Utilites.readStringFromBuffer(buffer);
             string surname = Utilites.readStringFromBuffer(buffer);
@@ -61,7 +61,7 @@ namespace Client
             DateTime from = DateTime.FromBinary(BitConverter.ToInt64(buffer.ToArray(), 0));
             buffer.RemoveRange(0, sizeof(Int64));
             DateTime to = DateTime.FromBinary(BitConverter.ToInt64(buffer.ToArray(), 0));
-
+            buffer.RemoveRange(0, sizeof(Int64));
             return new BussinesTripInfo(name, surname, patronymic, job, destinationPlace, reason, fullNameOfSender, from, to);
         }
     }
