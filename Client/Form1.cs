@@ -26,6 +26,9 @@ namespace Client
         private void test()
         {
             ;
+            //TODO:
+            //1. Регистрация пользователя с паролем + фикс гендера (+- 1 час)
+            //2. Скачивание уже созданных документов (+- 2 часа)
         }
 
         public Form1(ref ClientConnection client, ref User user)
