@@ -29,7 +29,12 @@ namespace Client
             GetFactories,
             GetEmployeesFactories,
             GetDocuments,
-            AddFactory
+            AddFactory,
+            DeleteFactory,
+            DeleteUser,
+            DeleteUserFactory,
+            AddUser,
+            AddFactoryUser
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -56,6 +61,14 @@ namespace Client
             return Buffer;
         }
 
+        public void DeleteUser(User user)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DeleteUser);
+            buffer.AddRange(user.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
 
         public List<User> GetUsers()
         {
@@ -150,6 +163,44 @@ namespace Client
             buffer.Add((byte)Operations.AddFactory);
             buffer.AddRange(BitConverter.GetBytes(user.userType));
             buffer.AddRange(BitConverter.GetBytes(user.factoryID));
+            buffer.AddRange(info.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void AddUser(User user)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.AddUser);
+            buffer.AddRange(user.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void DeleteFactory(User user, FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DeleteFactory);
+            buffer.AddRange(info.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void DeleteUserFactory(User user, FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DeleteUserFactory);
+            buffer.AddRange(info.serialise());
+            buffer.AddRange(user.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void AddFactoryUser(User user, FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.AddFactoryUser);
+            buffer.AddRange(user.serialise());
             buffer.AddRange(info.serialise());
             SendToClient(buffer.ToArray());
             ReceiveForClient();

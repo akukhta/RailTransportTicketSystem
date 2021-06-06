@@ -20,6 +20,7 @@ namespace Client
         private List<EmployeesFactoryInfo> LoadedFactoriesEmployees = null;
         private List<BussinesTripInfo> loadedDocuments = null;
         private FactoryInfo currentDestinationPlace = null;
+        private Action currentFunc = null;
         private Form subForm = null;
 
         private void test()
@@ -113,15 +114,15 @@ namespace Client
             switch (type)
             {
                 case 0:
-                    subForm = new UpdatingFormEmployees(loadedUsers);
+                    subForm = new UpdatingFormEmployees(loadedUsers, this);
                     break;
 
                 case 1:
-                    subForm = new UpdatingFactoriesForm(LoadedFactories, this);
+                    subForm = new UpdatingFactoriesForm(ref LoadedFactories, this);
                     break;
 
                 case 2:
-                    subForm = new UpdatingForm(LoadedFactoriesEmployees);
+                    subForm = new UpdatingForm(LoadedFactoriesEmployees, this);
                     break;
                 case 3:
                     subForm = new DocumentsFilter(loadedDocuments, this);
@@ -154,6 +155,7 @@ namespace Client
             List<User> users = client.GetUsers();
             LoadUsers(users);
             loadedUsers = users;
+            currentFunc = this.getUsers;
         }
 
         private void getFactories()
@@ -161,6 +163,7 @@ namespace Client
             List<FactoryInfo> factories = client.GetFactories();
             LoadFactories(factories);
             LoadedFactories = factories;
+            currentFunc = this.getFactories;
         }
 
         private void getFactoriesEmployees()
@@ -168,6 +171,7 @@ namespace Client
             List<EmployeesFactoryInfo> employeesFactories = client.GetEmployeesFactories();
             LoadFactoriesEmployees(employeesFactories);
             LoadedFactoriesEmployees = employeesFactories;
+            currentFunc = this.getFactoriesEmployees;
         }
 
         private void getDocuments()
@@ -175,6 +179,7 @@ namespace Client
             List<BussinesTripInfo> documents = client.GetDocuments();
             LoadDocuments(documents);
             loadedDocuments = documents;
+            currentFunc = this.getDocuments;
         }
 
         public void LoadDocuments(List<BussinesTripInfo> documents)
@@ -211,6 +216,33 @@ namespace Client
         public void AddFactory(FactoryInfo info)
         {
             client.AddFactory(user, info);
+        }
+
+        public void DeleteFactory(FactoryInfo info)
+        {
+            client.DeleteFactory(user, info);
+        }
+
+        public void DeleteSotrFactory(User user, FactoryInfo info)
+        {
+            client.DeleteUserFactory(user, info);            
+        }
+
+        public void DeleteUser(User user)
+        {
+            client.DeleteUser(user);
+        }
+
+
+        public void AddUser(User user)
+        {
+            client.AddUser(user);
+        }
+
+
+        public void AddFactoryUser(FactoryInfo info, User user)
+        {
+            client.AddFactoryUser(user, info);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -389,12 +421,17 @@ namespace Client
             dataGridView3.Columns[1].HeaderText = "Имя таблицы";
             dataGridView3.RowCount = 3;
             dataGridView3[0, 0].Value = "ID";
-            dataGridView3[1, 0].Value = "228";
+            dataGridView3[1, 0].Value = "4";
             dataGridView3[0, 1].Value = "Название";
-            dataGridView3[1, 1].Value = "ООО";
+            dataGridView3[1, 1].Value = "Брестский завод легкопромышленности";
             dataGridView3[0, 2].Value = "Адрес";
-            dataGridView3[1, 2].Value = "Ляховичи";
+            dataGridView3[1, 2].Value = "Г. Брест, ул. Фонарёва 40";
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            currentFunc();
         }
     }
    

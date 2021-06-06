@@ -58,8 +58,9 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.button4 = new System.Windows.Forms.Button();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -71,8 +72,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -84,18 +85,19 @@
             this.tabControl1.Location = new System.Drawing.Point(0, -5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(980, 468);
+            this.tabControl1.Size = new System.Drawing.Size(980, 503);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.panel3);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(972, 442);
+            this.tabPage1.Size = new System.Drawing.Size(972, 477);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Редактирование данных";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -134,7 +136,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(8, 6);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(586, 430);
+            this.dataGridView1.Size = new System.Drawing.Size(586, 465);
             this.dataGridView1.TabIndex = 12;
             // 
             // tabPage2
@@ -367,17 +369,17 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.71605F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.28395F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.35338F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.64662F));
             this.tableLayoutPanel2.Controls.Add(this.button4, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.dataGridView4, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dataGridView3, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.dataGridView4, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(810, 349);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(804, 349);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // button4
@@ -385,26 +387,36 @@
             this.tableLayoutPanel2.SetColumnSpan(this.button4, 2);
             this.button4.Location = new System.Drawing.Point(3, 326);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(553, 20);
+            this.button4.Size = new System.Drawing.Size(797, 20);
             this.button4.TabIndex = 1;
-            this.button4.Text = "button4";
+            this.button4.Text = "Согласовать";
             this.button4.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(480, 3);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(321, 317);
+            this.dataGridView3.TabIndex = 0;
             // 
             // dataGridView4
             // 
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4.Location = new System.Drawing.Point(3, 3);
             this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(258, 317);
+            this.dataGridView4.Size = new System.Drawing.Size(471, 317);
             this.dataGridView4.TabIndex = 2;
             // 
-            // dataGridView3
+            // button1
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(267, 3);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(537, 317);
-            this.dataGridView3.TabIndex = 0;
+            this.button1.Location = new System.Drawing.Point(728, 442);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(122, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Обновить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Form1
             // 
@@ -413,7 +425,7 @@
             this.ClientSize = new System.Drawing.Size(982, 510);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "RailTransportTicketSystem";
+            this.Text = "УправКомДок";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -428,8 +440,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -468,6 +480,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

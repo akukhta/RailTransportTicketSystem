@@ -16,7 +16,7 @@ namespace Client
         private FactoryInfo currentFactory = null;
         private Form1 parent = null;
 
-        public UpdatingFactoriesForm(List<FactoryInfo> factories, Form1 parent)
+        public UpdatingFactoriesForm(ref List<FactoryInfo> factories, Form1 parent)
         {
             InitializeComponent();
             this.factories = factories;
@@ -59,6 +59,17 @@ namespace Client
             string address = comboBox3.Text;
             FactoryInfo newFactory = new FactoryInfo(factoryID, name, address);
             parent.AddFactory(newFactory);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            int factoryID = Convert.ToInt32(comboBox1.Text);
+            string name = comboBox2.Text;
+            string address = comboBox3.Text;
+            FactoryInfo factory = new FactoryInfo(factoryID, name, address);
+            parent.DeleteFactory(factory);
+
         }
     }
 }

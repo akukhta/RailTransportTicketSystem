@@ -17,7 +17,12 @@ namespace Server
             GetFactories,
             GetEmployesFactories,
             GetDocuments,
-            AddFactory
+            AddFactory,
+            DeleteFactory,
+            DeleteUser,
+            DeleteUserFactory,
+            AddUser,
+            AddFactoryUser
         }
 
         private Database db;
@@ -42,7 +47,7 @@ namespace Server
                 case Operations.CreateRequest:
                     answer = CreateRequest(request);
                     break;
-                    
+
                 case Operations.GetUsersFromDB:
                     answer = GetEmployees(request);
                     break;
@@ -61,23 +66,48 @@ namespace Server
                     answer = new List<byte>();
                     answer.Add(0x0);
                     break;
+                case Operations.DeleteFactory:
+                    DeleteFactory(request);
+                    answer = new List<byte>();
+                    answer.Add(0x0);
+                    break;
+                case Operations.DeleteUser:
+                    DeleteUser(request);
+                    answer = new List<byte>();
+                    answer.Add(0x0);
+                    break;
+                case Operations.DeleteUserFactory:
+                    DeleteSotrPredpr(request);
+                    answer = new List<byte>();
+                    answer.Add(0x0);
+                    break;
+                case Operations.AddUser:
+                    AddUser(request);
+                    answer = new List<byte>();
+                    answer.Add(0x0);
+                    break;
+                case Operations.AddFactoryUser:
+                    AddFactoryUser(request);
+                    answer = new List<byte>();
+                    answer.Add(0x0);
+                    break;
                 default:
                     break;
 
-                //case 1:
-                //    answer = Sotr(request);
-                //    break;
+                    //case 1:
+                    //    answer = Sotr(request);
+                    //    break;
 
-                //case 2:
-                //    answer = Predpr(request);
-                //    break;
+                    //case 2:
+                    //    answer = Predpr(request);
+                    //    break;
 
-                //case 3:
-                //    answer = SotrPredpr(request);
-                //    break;
+                    //case 3:
+                    //    answer = SotrPredpr(request);
+                    //    break;
 
-                //case 4:
-                //    break;
+                    //case 4:
+                    //    break;
 
             }
             return answer;
@@ -85,7 +115,7 @@ namespace Server
 
         private List<byte> Sign(List<byte> buffer)
         {
-            Int32 lengthOfPass = (BitConverter.ToInt32(buffer.ToArray(),0));
+            Int32 lengthOfPass = (BitConverter.ToInt32(buffer.ToArray(), 0));
             buffer.RemoveRange(0, sizeof(Int32));
             string password = Encoding.Default.GetString(buffer.ToArray());
             byte[] answer = db.Login(password).serialise();
@@ -175,16 +205,55 @@ namespace Server
             int userType = Utilites.readIntFromBuffer(buffer);
             int predprID = Utilites.readIntFromBuffer(buffer);
             FactoryInfo newFactory = FactoryInfo.deserialise(buffer);
+            db.AddToTable(newFactory, "Предприятия");
 
-            if (userType == 1)
-            {
-                db.AddToTable(newFactory, "Предприятия");
-            }
-            else
-            {
-                db.AddToChangesTable(null, newFactory, 0, "Предприятия", predprID);
-            }
+            //if (userType == 1)
+            //{
+            //    db.AddToTable(newFactory, "Предприятия");
+            //}
+            //else
+            //{
+            //    db.AddToChangesTable(null, newFactory, 0, "Предприятия", predprID);
+            //}
 
+        }
+
+        private void AddFactoryUser(List<byte> buffer)
+        {
+            User user = User.deserialise(buffer);
+            FactoryInfo info = FactoryInfo.deserialise(buffer);
+            
+            user.factoryID = info.predprID;
+
+            db.AddToTable(user, "Сотрудники-Предприятия");
+        }
+
+        private void DeleteFactory(List<byte> buffer)
+        {
+            FactoryInfo deletingFactory = FactoryInfo.deserialise(buffer);
+
+            db.DeleteFactory(deletingFactory);
+        }
+
+        private void DeleteUser(List<byte> buffer)
+        {
+            User user = User.deserialise(buffer);
+
+            db.DeleteSotr(user);
+        }
+
+        private void AddUser(List<byte> request)
+        {
+            User user = User.deserialise(request);
+            db.AddToTable(user, "Сотрудники");
+        }
+
+        private void DeleteSotrPredpr(List<byte> buffer)
+        {
+            FactoryInfo factoryInfo = FactoryInfo.deserialise(buffer);
+            User user = User.deserialise(buffer);
+
+            db.DeleteFactoryUser(factoryInfo, user);
         }
     }
 }

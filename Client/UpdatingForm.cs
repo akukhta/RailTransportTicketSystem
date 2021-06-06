@@ -14,8 +14,9 @@ namespace Client
     {
         List<EmployeesFactoryInfo> employeesFactoryInfos = null;
         EmployeesFactoryInfo currentEmployesFactpry = null;
+        private Form1 parent = null;
 
-        public UpdatingForm(List<EmployeesFactoryInfo> employeesFactories)
+        public UpdatingForm(List<EmployeesFactoryInfo> employeesFactories, Form1 parent)
         {
             InitializeComponent();
 
@@ -29,6 +30,8 @@ namespace Client
                 comboBox1.Items.Add(employeesFactoryInfos[i].UserID);
                 comboBox2.Items.Add(employeesFactoryInfos[i].FactoryID);
             }
+
+            this.parent = parent;
 
         }
 
@@ -55,6 +58,26 @@ namespace Client
 
             comboBox1.SelectedIndexChanged += BoxesChanged;
             comboBox2.SelectedIndexChanged += BoxesChanged;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int factoryID = Convert.ToInt32(comboBox2.Text);
+            int userID = Convert.ToInt32(comboBox1.Text);
+
+            FactoryInfo info = new FactoryInfo(factoryID, "", "");
+            User user = new User(false, 1, userID);
+            parent.DeleteSotrFactory(user, info);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int factoryID = Convert.ToInt32(comboBox2.Text);
+            int userID = Convert.ToInt32(comboBox1.Text);
+
+            FactoryInfo info = new FactoryInfo(factoryID, "", "");
+            User user = new User(false, 1, userID);
+            parent.AddFactoryUser(info, user);
         }
     }
 }

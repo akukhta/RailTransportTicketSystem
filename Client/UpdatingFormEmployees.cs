@@ -14,8 +14,9 @@ namespace Client
     {
         private List<User> users = null;
         private User currentUser = null;
+        private Form1 parent = null;
 
-        public UpdatingFormEmployees(List<User> users)
+        public UpdatingFormEmployees(List<User> users, Form1 parent)
         {
             InitializeComponent();
             this.users = users;
@@ -34,6 +35,8 @@ namespace Client
                 comboBox8.Items.Add(users[i].userType == 0 ? "Пользователь" : "Администратор");
                 comboBox9.Items.Add(users[i].job);
             }
+
+            this.parent = parent;
         }
 
         private bool CheckUserInput()
@@ -74,6 +77,31 @@ namespace Client
             comboBox8.SelectedIndexChanged += BoxesChanged;
             comboBox9.SelectedIndexChanged += BoxesChanged;
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int userID = Convert.ToInt32(comboBox1.Text);
+            string name = comboBox2.Text;
+            string surname = comboBox3.Text;
+            string patronymic = comboBox4.Text;
+            string passS = comboBox5.Text;
+            string passN = comboBox6.Text;
+            DateTime date = dateTimePicker1.Value.Date;
+            int userType = comboBox8.Text == "Пользователь" ? 0 : 1;
+            string job = comboBox9.Text;
+            string gender = comboBox7.Text;
+            User user = new User(false, userType, userID, name, surname, patronymic, passS, passN, job, gender, date, 0);
+
+            parent.AddUser(user);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int userID = Convert.ToInt32(comboBox1.Text);
+
+            User user = new User(false, 0, userID);
+            parent.DeleteUser(user);
         }
     }
 }

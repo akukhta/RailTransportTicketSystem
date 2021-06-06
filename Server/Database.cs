@@ -227,6 +227,49 @@ namespace Server
                     + "\', \'" + factory.address + "\', 1);";
             }
 
+            if (tableName == "Сотрудники")
+            {
+                User user = (User)newValue;
+                query = "insert into sotr values(" + user.userID + ", \'" + user.name
+                    + "\', \'" + user.surname + "\', \'" + user.patronymic + "\', \'" + user.passportSeries
+                    + "\', \'" + user.passportNumber + "\', \'" + user.gender + "\', \'" +
+                    user.birthday.ToString("yyyy-MM-dd") + "\', " + user.userType + ", \'" + user.job + "\');";
+            }
+
+            if (tableName == "Сотрудники-Предприятия")
+            {
+                User user = (User)newValue;
+                query = "insert into sotrpredpr values(" + user.userID + "," + user.factoryID + ");";
+            }
+
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+        }
+
+        public void DeleteFactory(FactoryInfo factory)
+        {
+            string query = "delete from predpr where predprID = " + factory.predprID + ";";
+            
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+        }
+
+        public void DeleteSotr(User user)
+        {
+            string query = "delete from sotr where sotrID = " + user.userID + ";";
+
+            SqlCommand command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+
+            query = "delete from sign where sotrID = " + user.userID + ";";
+            command = new SqlCommand(query, conn);
+            command.ExecuteNonQuery();
+        }
+
+        public void DeleteFactoryUser(FactoryInfo factory, User user)
+        {
+            string query = "delete from sotrpredpr where sotrID = " + user.userID + " and predprID = " + factory.predprID + ";";
+
             SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
         }
