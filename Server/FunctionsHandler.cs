@@ -22,7 +22,8 @@ namespace Server
             DeleteUser,
             DeleteUserFactory,
             AddUser,
-            AddFactoryUser
+            AddFactoryUser,
+            DownloadDocument
         }
 
         private Database db;
@@ -91,6 +92,10 @@ namespace Server
                     answer = new List<byte>();
                     answer.Add(0x0);
                     break;
+                case Operations.DownloadDocument:
+                    answer = DownloadDocuments(request);
+                    break;
+
                 default:
                     break;
 
@@ -126,16 +131,23 @@ namespace Server
         {
             List<byte> bytes = new List<byte>();
             BussinesTripInfo info = BussinesTripInfo.deserialise(buffer);
+            int documentID = db.getDocumentID();
+            string filename = DocumetGeneration.GenerateDocument(info, documentID);
 
-            db.AddDocument(info);
-
-            string filename = DocumetGeneration.GenerateDocument(info);
+            db.AddDocument(info, filename, documentID);
 
             bytes = File.ReadAllBytes(filename).ToList();
 
             return bytes;
         }
 
+        private List<byte> DownloadDocuments(List<byte> buffer)
+        {
+            int documentID = Utilites.readIntFromBuffer(buffer);
+            List<byte> file = File.ReadAllBytes(db.getFile(documentID)).ToList();
+            return file;
+        }
+        
         private List<byte> GetEmployees(List<byte> buffer)
         {
             List<byte> users = new List<byte>();
@@ -245,7 +257,8 @@ namespace Server
         private void AddUser(List<byte> request)
         {
             User user = User.deserialise(request);
-            db.AddToTable(user, "Сотрудники");
+            string password = Utilites.readStringFromBuffer(request);
+            db.AddToTable(user, "Сотрудники", password);
         }
 
         private void DeleteSotrPredpr(List<byte> buffer)

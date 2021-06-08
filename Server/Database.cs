@@ -27,6 +27,28 @@ namespace Server
             q.ExecuteNonQuery();
         }
 
+
+        public int getDocumentID()
+        {
+            string query = "select max(documentID) from changes;";
+            SqlCommand command = new SqlCommand(query, conn);
+            SqlDataReader reader = command.ExecuteReader();
+            int documentID = (new Random()).Next();
+
+            try
+            {
+                reader.Read();
+                documentID = reader.GetInt32(0) + 1;
+            }
+            catch (Exception ex)
+            {
+                documentID = (new Random()).Next();
+            }
+
+            reader.Close();
+            return documentID;
+        }
+        
         public User Login(string password)
         {
             string query = "select sotrID from sign where password = \'" + password + "\';";
@@ -173,6 +195,23 @@ namespace Server
             return employeesFactoryInfos;
         }
 
+        public string getFile(int documentID)
+        {
+            string query = "select fileName from changes where documentID = " + documentID + ";";
+            SqlCommand command = new SqlCommand(query, conn);
+            SqlDataReader reader = command.ExecuteReader();
+            string fileName = "";
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                fileName = reader.GetString(0);
+            }
+
+            reader.Close();
+            return fileName;
+        }
+
         public List<BussinesTripInfo> GetDocuments()
         {
             List<BussinesTripInfo> documents = new List<BussinesTripInfo>();
@@ -197,26 +236,30 @@ namespace Server
                 string destinationPlace = reader.GetString(5);
                 string reason = reader.GetString(6);
                 string sender = reader.GetString(7);
+                int documentID = reader.GetInt32(9);
 
-                documents.Add(new BussinesTripInfo(name, surname, patronymic, "", destinationPlace, reason, sender, start, end));
+                documents.Add(new BussinesTripInfo(name, surname, patronymic, "", destinationPlace, reason, sender, start, end, documentID));
             }
 
             reader.Close();
             return documents;
         }
 
-        public void AddDocument(BussinesTripInfo info)
+        public void AddDocument(BussinesTripInfo info, string fileName, int documentID)
         {
             string query = "insert into changes (name, surname, patronymic," +
-                "startdate, enddate, destinationPlace, reason, sender) values (\'" + info.name + "\', \'" + info.surname + "\', \'" + info.patronymic +
+                "startdate, enddate, destinationPlace, reason, sender, fileName, documentID) values (\'" + info.name + "\', \'" + info.surname + "\', \'" + info.patronymic +
                 "\',\'" + info.from.ToString("yyyy-MM-dd") + "\',\'" + info.to.ToString("yyyy-MM-dd") + "\',\'" +
-                info.destinationPlace + "\', \'" + info.reason + "\',\'" + info.fullNameOfSender + "\');";
+                info.destinationPlace + "\', \'" + info.reason + "\',\'" + info.fullNameOfSender + "\',\'" + fileName + "\', " +
+                documentID.ToString() + ");";
+
+
 
             SqlCommand command = new SqlCommand(query, conn);
             command.ExecuteNonQuery();
         }
 
-        public void AddToTable(Object newValue, string tableName)
+        public void AddToTable(Object newValue, string tableName, object additionalValues = null)
         {
             string query = null;
 
@@ -225,6 +268,7 @@ namespace Server
                 FactoryInfo factory = (FactoryInfo)newValue;
                 query = "insert into predpr(predprID, name, address, isValid) values(" + factory.predprID + ", \'" + factory.name
                     + "\', \'" + factory.address + "\', 1);";
+                string password = (string)additionalValues;
             }
 
             if (tableName == "Сотрудники")
@@ -234,6 +278,11 @@ namespace Server
                     + "\', \'" + user.surname + "\', \'" + user.patronymic + "\', \'" + user.passportSeries
                     + "\', \'" + user.passportNumber + "\', \'" + user.gender + "\', \'" +
                     user.birthday.ToString("yyyy-MM-dd") + "\', " + user.userType + ", \'" + user.job + "\');";
+
+                string password = (string)additionalValues;
+                SqlCommand _command = new SqlCommand(query, conn);
+                _command.ExecuteNonQuery();
+                query = "insert into sign values(" + user.userID + ", \'" + password + "\');";
             }
 
             if (tableName == "Сотрудники-Предприятия")
@@ -289,7 +338,6 @@ namespace Server
                     SqlCommand command = new SqlCommand(query, conn);
                     command.ExecuteNonQuery();
                 }
-
 
             }
         }

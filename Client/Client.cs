@@ -34,7 +34,8 @@ namespace Client
             DeleteUser,
             DeleteUserFactory,
             AddUser,
-            AddFactoryUser
+            AddFactoryUser,
+            DownloadDocument
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -69,6 +70,17 @@ namespace Client
             SendToClient(buffer.ToArray());
             ReceiveForClient();
         }
+
+        public List<byte> DownloadDocument(int documentID)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DownloadDocument);
+            buffer.AddRange(BitConverter.GetBytes(documentID));
+            SendToClient(buffer.ToArray());
+            List<byte> file = ReceiveForClient().ToList();
+            return file;
+        }
+
 
         public List<User> GetUsers()
         {
@@ -168,11 +180,13 @@ namespace Client
             ReceiveForClient();
         }
 
-        public void AddUser(User user)
+        public void AddUser(User user, string password)
         {
             List<byte> buffer = new List<byte>();
             buffer.Add((byte)Operations.AddUser);
             buffer.AddRange(user.serialise());
+            buffer.AddRange(BitConverter.GetBytes(password.Length));
+            buffer.AddRange(Encoding.Default.GetBytes(password));
             SendToClient(buffer.ToArray());
             ReceiveForClient();
         }

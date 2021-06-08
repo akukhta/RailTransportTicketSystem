@@ -25,9 +25,9 @@ namespace Client
 
         private void test()
         {
-            ;
+            
             //TODO:
-            //1. Регистрация пользователя с паролем + фикс гендера (+- 1 час)
+            //1. Регистрация пользователя с паролем + фикс гендера (+- 1 час) ++++
             //2. Скачивание уже созданных документов (+- 2 часа)
         }
 
@@ -187,16 +187,26 @@ namespace Client
 
         public void LoadDocuments(List<BussinesTripInfo> documents)
         {
+            button2.Visible = true;
             dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
             dataGridView1.Refresh();
-            dataGridView1.ColumnCount = 6;
+            dataGridView1.ColumnCount = 7;
 
-            dataGridView1.Columns[0].HeaderText = "ФИО";
-            dataGridView1.Columns[1].HeaderText = "Дата прибытия";
-            dataGridView1.Columns[2].HeaderText = "Дата отправления";
-            dataGridView1.Columns[3].HeaderText = "Место отправления";
-            dataGridView1.Columns[4].HeaderText = "Причина";
-            dataGridView1.Columns[5].HeaderText = "Отправитель";
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "ФИО";
+            dataGridView1.Columns[2].HeaderText = "Дата прибытия";
+            dataGridView1.Columns[3].HeaderText = "Дата отправления";
+            dataGridView1.Columns[4].HeaderText = "Место отправления";
+            dataGridView1.Columns[5].HeaderText = "Причина";
+            dataGridView1.Columns[6].HeaderText = "Отправитель";
+
+            DataGridViewCheckBoxColumn checkColumn = new DataGridViewCheckBoxColumn();
+            checkColumn.HeaderText = "Скачать документ";
+            checkColumn.ReadOnly = false;
+            checkColumn.FillWeight = 10; //if the datagridview is resized (on form resize) the checkbox won't take up too much; value is relative to the other columns' fill values
+            dataGridView1.Columns.Add(checkColumn);
+
 
             if (documents.Count == 0)
                 return;
@@ -205,12 +215,13 @@ namespace Client
 
             for (int i = 0; i < documents.Count; i++)
             {
-                dataGridView1.Rows[i].Cells[0].Value = documents[i].name + " " + documents[i].surname + " " + documents[i].patronymic;
-                dataGridView1.Rows[i].Cells[1].Value = documents[i].from.ToString("dd-MM-yyyy");
-                dataGridView1.Rows[i].Cells[2].Value = documents[i].to.ToString("dd-MM-yyyy");
-                dataGridView1.Rows[i].Cells[3].Value = documents[i].destinationPlace;
-                dataGridView1.Rows[i].Cells[4].Value = documents[i].reason;
-                dataGridView1.Rows[i].Cells[5].Value = documents[i].fullNameOfSender;
+                dataGridView1.Rows[i].Cells[0].Value = documents[i].documentID;
+                dataGridView1.Rows[i].Cells[1].Value = documents[i].name + " " + documents[i].surname + " " + documents[i].patronymic;
+                dataGridView1.Rows[i].Cells[2].Value = documents[i].from.ToString("dd-MM-yyyy");
+                dataGridView1.Rows[i].Cells[3].Value = documents[i].to.ToString("dd-MM-yyyy");
+                dataGridView1.Rows[i].Cells[4].Value = documents[i].destinationPlace;
+                dataGridView1.Rows[i].Cells[5].Value = documents[i].reason;
+                dataGridView1.Rows[i].Cells[6].Value = documents[i].fullNameOfSender;
             }
 
 
@@ -237,9 +248,9 @@ namespace Client
         }
 
 
-        public void AddUser(User user)
+        public void AddUser(User user, string password)
         {
-            client.AddUser(user);
+            client.AddUser(user, password);
         }
 
 
@@ -271,7 +282,7 @@ namespace Client
             string[] fullname = comboBox1.Text.Split(' ');
 
             BussinesTripInfo info = new BussinesTripInfo(fullname[0], fullname[1], fullname[2], textBox1.Text,
-                currentDestinationPlace.name + " " + currentDestinationPlace.address, richTextBox1.Text, textBox2.Text, dateTimePicker1.Value, dateTimePicker2.Value);
+                currentDestinationPlace.name + " " + currentDestinationPlace.address, richTextBox1.Text, textBox2.Text, dateTimePicker1.Value, dateTimePicker2.Value, 0);
 
             var file = client.CreateRequest(info);
 
@@ -298,8 +309,10 @@ namespace Client
 
         private void LoadUsers(List<User> users)
         {
+            button2.Visible = false;
             comboBox1.Items.Clear();
             dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
             dataGridView1.Refresh();
             dataGridView1.ColumnCount = 10;
             dataGridView1.RowCount = users.Count;
@@ -323,7 +336,7 @@ namespace Client
                 dataGridView1.Rows[i].Cells[4].Value = users[i].passportSeries;
                 dataGridView1.Rows[i].Cells[5].Value = users[i].passportNumber;
                 dataGridView1.Rows[i].Cells[6].Value = users[i].gender;
-                dataGridView1.Rows[i].Cells[7].Value = users[i].birthday;
+                dataGridView1.Rows[i].Cells[7].Value = users[i].birthday.ToString("yyyy-mm-dd");
                 dataGridView1.Rows[i].Cells[8].Value = (users[i].userType == 0 ? "Пользователь" : "Администратор");
                 dataGridView1.Rows[i].Cells[9].Value = users[i].job;
 
@@ -334,8 +347,10 @@ namespace Client
 
         private void LoadFactories(List<FactoryInfo> factories)
         {
+            button2.Visible = false;
             comboBox3.Items.Clear();
             dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
             dataGridView1.Refresh();
             dataGridView1.ColumnCount = 3;
             dataGridView1.RowCount = factories.Count;
@@ -356,7 +371,9 @@ namespace Client
 
         private void LoadFactoriesEmployees(List<EmployeesFactoryInfo> employeesFactoryInfos)
         {
+            button2.Visible = false;
             dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
             dataGridView1.Refresh();
             dataGridView1.ColumnCount = 2;
             dataGridView1.RowCount = employeesFactoryInfos.Count;
@@ -435,6 +452,27 @@ namespace Client
         private void button1_Click_1(object sender, EventArgs e)
         {
             currentFunc();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                if (dataGridView1[7,i].Value != null && (bool)dataGridView1[7, i].Value)
+                {
+                    var file = client.DownloadDocument(Convert.ToInt32(dataGridView1[0, i].Value));
+                    
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "Word document|*.docx";
+                    saveFileDialog.Title = "Сохранить командировочное удостоверение";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        File.WriteAllBytes(saveFileDialog.FileName, file.ToArray());
+                    }
+
+                }
+            }
         }
     }
    

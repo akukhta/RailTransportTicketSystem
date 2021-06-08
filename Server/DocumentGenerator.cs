@@ -5,7 +5,7 @@ namespace Server
 {
     public static class DocumetGeneration
     {
-        public static string GenerateDocument(BussinesTripInfo info)
+        public static string GenerateDocument(BussinesTripInfo info, int documentID)
         {
             string filename = (new Random()).NextDouble().GetHashCode().ToString() + ".docx";
             DocX doc = DocX.Create(filename);
@@ -41,7 +41,7 @@ namespace Server
 
             doc.Paragraphs[4].SetLineSpacing(Xceed.Document.NET.LineSpacingType.After, 20);
 
-            doc.InsertParagraph("КОМАНДИРОВОЧНОЕ УДОСТОВЕРЕНИЕ №322").
+            doc.InsertParagraph("КОМАНДИРОВОЧНОЕ УДОСТОВЕРЕНИЕ №" + documentID.ToString()).
                 Font("Times New Roman").
                 FontSize(13).
                 Bold().

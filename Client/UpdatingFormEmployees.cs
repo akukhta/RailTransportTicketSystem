@@ -32,6 +32,7 @@ namespace Client
                 comboBox4.Items.Add(users[i].patronymic);
                 comboBox5.Items.Add(users[i].passportSeries);
                 comboBox6.Items.Add(users[i].passportNumber);
+                comboBox7.Items.Add(users[i].gender);
                 comboBox8.Items.Add(users[i].userType == 0 ? "Пользователь" : "Администратор");
                 comboBox9.Items.Add(users[i].job);
             }
@@ -52,6 +53,7 @@ namespace Client
             comboBox4.SelectedIndexChanged -= BoxesChanged;
             comboBox5.SelectedIndexChanged -= BoxesChanged;
             comboBox6.SelectedIndexChanged -= BoxesChanged;
+            comboBox7.SelectedIndexChanged -= BoxesChanged;
             comboBox8.SelectedIndexChanged -= BoxesChanged;
             comboBox9.SelectedIndexChanged -= BoxesChanged;
 
@@ -65,6 +67,7 @@ namespace Client
             comboBox5.SelectedItem = currentUser.passportSeries;
             comboBox6.SelectedItem = currentUser.passportNumber;
             dateTimePicker1.Value = currentUser.birthday;
+            comboBox7.SelectedItem = currentUser.gender;
             comboBox8.SelectedItem = currentUser.userType == 0 ? "Пользователь" : "Администратор";
             comboBox9.SelectedItem = currentUser.job;
 
@@ -74,6 +77,7 @@ namespace Client
             comboBox4.SelectedIndexChanged += BoxesChanged;
             comboBox5.SelectedIndexChanged += BoxesChanged;
             comboBox6.SelectedIndexChanged += BoxesChanged;
+            comboBox7.SelectedIndexChanged += BoxesChanged;
             comboBox8.SelectedIndexChanged += BoxesChanged;
             comboBox9.SelectedIndexChanged += BoxesChanged;
 
@@ -92,8 +96,8 @@ namespace Client
             string job = comboBox9.Text;
             string gender = comboBox7.Text;
             User user = new User(false, userType, userID, name, surname, patronymic, passS, passN, job, gender, date, 0);
-
-            parent.AddUser(user);
+            string password = textBox1.Text;
+            parent.AddUser(user, password);
         }
 
         private void button3_Click(object sender, EventArgs e)
