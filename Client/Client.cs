@@ -24,7 +24,18 @@ namespace Client
         public enum Operations : byte
         {
             Login, 
-            CreateRequest
+            CreateRequest,
+            GetUsers,
+            GetFactories,
+            GetEmployeesFactories,
+            GetDocuments,
+            AddFactory,
+            DeleteFactory,
+            DeleteUser,
+            DeleteUserFactory,
+            AddUser,
+            AddFactoryUser,
+            DownloadDocument
         }
 
         public ClientConnection(string IpString = "127.0.0.1", int Port = 5564)
@@ -51,6 +62,46 @@ namespace Client
             return Buffer;
         }
 
+        public void DeleteUser(User user)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DeleteUser);
+            buffer.AddRange(user.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public List<byte> DownloadDocument(int documentID)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DownloadDocument);
+            buffer.AddRange(BitConverter.GetBytes(documentID));
+            SendToClient(buffer.ToArray());
+            List<byte> file = ReceiveForClient().ToList();
+            return file;
+        }
+
+
+        public List<User> GetUsers()
+        {
+            List<byte> buffer = new List<byte>();
+            List<User> users = new List<User>();
+            buffer.Add((byte)Operations.GetUsers);
+
+            SendToClient(buffer.ToArray());
+
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 usersCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            for (int i = 0; i < usersCount; i++)
+            {
+                users.Add(User.deserialise(answer));
+            }
+
+            return users;
+        }
+
         public User Login(string ID)
         {
             List<byte> buffer = new List<byte>();
@@ -69,12 +120,123 @@ namespace Client
         /// <summary>
         /// Only for test, for future the request has to be approved. But for now simple generation is also good.
         /// </summary>
-        public void CreateRequest(BussinesTripInfo info)
+        public List<byte> CreateRequest(BussinesTripInfo info)
         {
             List<byte> bytes = new List<byte>();
             bytes.Add((byte)Operations.CreateRequest);
             bytes.AddRange(info.serialise());
             SendToClient(bytes.ToArray());
+            List<byte> file = ReceiveForClient().ToList();
+            return file;
+        }
+
+        public List<FactoryInfo> GetFactories()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add((byte)Operations.GetFactories);
+            SendToClient(bytes.ToArray());
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 FactoriesCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            List<FactoryInfo> factories = new List<FactoryInfo>();
+
+            for (int i = 0; i < FactoriesCount; i++)
+            {
+                factories.Add(FactoryInfo.deserialise(answer));
+            }
+
+            return factories;
+        }
+
+        public List<EmployeesFactoryInfo> GetEmployeesFactories()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add((byte)Operations.GetEmployeesFactories);
+            SendToClient(bytes.ToArray());
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 employeesFactoriesCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            List<EmployeesFactoryInfo> employeesFactories = new List<EmployeesFactoryInfo>();
+
+            for (int i = 0; i < employeesFactoriesCount; i++)
+            {
+                employeesFactories.Add(EmployeesFactoryInfo.deserialise(answer));
+            }
+
+            return employeesFactories;
+        }
+
+
+        public void AddFactory(User user,FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.AddFactory);
+            buffer.AddRange(BitConverter.GetBytes(user.userType));
+            buffer.AddRange(BitConverter.GetBytes(user.factoryID));
+            buffer.AddRange(info.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void AddUser(User user, string password)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.AddUser);
+            buffer.AddRange(user.serialise());
+            buffer.AddRange(BitConverter.GetBytes(password.Length));
+            buffer.AddRange(Encoding.Default.GetBytes(password));
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void DeleteFactory(User user, FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DeleteFactory);
+            buffer.AddRange(info.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void DeleteUserFactory(User user, FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.DeleteUserFactory);
+            buffer.AddRange(info.serialise());
+            buffer.AddRange(user.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public void AddFactoryUser(User user, FactoryInfo info)
+        {
+            List<byte> buffer = new List<byte>();
+            buffer.Add((byte)Operations.AddFactoryUser);
+            buffer.AddRange(user.serialise());
+            buffer.AddRange(info.serialise());
+            SendToClient(buffer.ToArray());
+            ReceiveForClient();
+        }
+
+        public List<BussinesTripInfo> GetDocuments()
+        {
+            List<byte> bytes = new List<byte>();
+            bytes.Add((byte)Operations.GetDocuments);
+            SendToClient(bytes.ToArray());
+            List<byte> answer = ReceiveForClient().ToList();
+            Int32 documentsCount = BitConverter.ToInt32(answer.ToArray(), 0);
+            answer.RemoveRange(0, sizeof(Int32));
+
+            List<BussinesTripInfo> documents = new List<BussinesTripInfo>();
+
+            for (int i = 0; i < documentsCount; i++)
+            {
+                documents.Add(BussinesTripInfo.deserialise(answer));
+            }
+
+            return documents;
         }
     }
 }

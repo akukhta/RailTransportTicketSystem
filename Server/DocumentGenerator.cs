@@ -5,10 +5,10 @@ namespace Server
 {
     public static class DocumetGeneration
     {
-        public static void GenerateDocument(BussinesTripInfo info)
+        public static string GenerateDocument(BussinesTripInfo info, int documentID)
         {
-
-            DocX doc = DocX.Create("Cod.docx");
+            string filename = (new Random()).NextDouble().GetHashCode().ToString() + ".docx";
+            DocX doc = DocX.Create(filename);
             doc.InsertParagraph("Транспортное республиканское унитарное предприятие").
                 Font("Times New Roman").
                 FontSize(11).
@@ -41,7 +41,7 @@ namespace Server
 
             doc.Paragraphs[4].SetLineSpacing(Xceed.Document.NET.LineSpacingType.After, 20);
 
-            doc.InsertParagraph("КОМАНДИРОВОЧНОЕ УДОСТОВЕРЕНИЕ №322").
+            doc.InsertParagraph("КОМАНДИРОВОЧНОЕ УДОСТОВЕРЕНИЕ №" + documentID.ToString()).
                 Font("Times New Roman").
                 FontSize(13).
                 Bold().
@@ -91,8 +91,8 @@ namespace Server
 
             doc.Paragraphs[10].SetLineSpacing(Xceed.Document.NET.LineSpacingType.After, 0);
 
-            doc.InsertParagraph("Срок командировки: сроком на" + (info.to - info.from).TotalDays.ToString() + " дней с " + 
-                info.from.Date.ToString() + " по " + info.to.Date.ToString()).
+            doc.InsertParagraph("Срок командировки: сроком на " + (info.to - info.from).Days + " дней с " + 
+                info.from.Date.ToString("dd.MM.yyyy") + " по " + info.to.Date.ToString("dd.MM.yyyy")).
                 Font("Times New Roman").
                 FontSize(11).
                 //UnderlineStyle(Xceed.Document.NET.UnderlineStyle.singleLine).
@@ -148,6 +148,7 @@ namespace Server
 
 
             doc.Save();
+            return filename;
         }
     }
 }

@@ -14,17 +14,10 @@ namespace Server
     {
         private Server server;
 
-        private void test()
-        {
-            listView1.Items.Add("g776");
-            listView1.Items.Add("g54");
-            listView1.Items.Add("g43");          
-        }
         public Form1()
         {
             InitializeComponent();
             listView1.View = System.Windows.Forms.View.List;
-            test();
             server = new Server(new UIUpdater(this));
         }
 

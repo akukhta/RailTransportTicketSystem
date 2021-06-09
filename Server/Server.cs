@@ -56,7 +56,14 @@ namespace Server
             uIUpdater.LogMessage("Сервер включен!");
             while (true)
             {
-                Socket.Select(sockets, null, null, -1);
+                if (sockets.Count > 0)
+                {
+                    Socket.Select(sockets, null, null, -1);
+                }
+                else
+                {
+                    continue;
+                }
 
                 for (int i = 0; i < sockets.Count; i++)
                 {
@@ -69,6 +76,13 @@ namespace Server
                     }
                     else
                     {
+                        if (sockets[i].Available == 0)
+                        {
+                            sockets.RemoveAt(i);
+                            i--;
+                            continue;
+                        }
+
                         byte[] buffer = new byte[sockets[i].Available];
                         sockets[i].Receive(buffer);
                         uIUpdater.LogMessage(buffer.ToString());

@@ -9,13 +9,13 @@ namespace Client
     public class User
     {
         public int userType;
-        public int userID;
+        public int userID, factoryID;
         public string name, surname, patronymic, passportSeries, passportNumber, job, gender;
         public DateTime birthday;
         public bool isValid;
 
         public User(bool isValid = true, int userType = 0, int userID = 0, string name = "", string surname = "",
-            string patronymic = "", string passportSeries = "", string passportNumber = "", string job = "", string gender = "", DateTime birthday = new DateTime())
+            string patronymic = "", string passportSeries = "", string passportNumber = "", string job = "", string gender = "", DateTime birthday = new DateTime(), int factoryID = 0)
         {
             this.isValid = isValid;
             this.userType = userType;
@@ -28,6 +28,7 @@ namespace Client
             this.passportSeries = passportSeries;
             this.passportNumber = passportNumber;
             this.job = job;
+            this.factoryID = factoryID;
         }
 
         public byte[] serialise()
@@ -51,6 +52,7 @@ namespace Client
             buffer.AddRange(BitConverter.GetBytes(gender.Length));
             buffer.AddRange(Encoding.Default.GetBytes(gender));
             buffer.AddRange(BitConverter.GetBytes(birthday.Ticks));
+            buffer.AddRange(BitConverter.GetBytes(factoryID));
             return buffer.ToArray();
         }
 
@@ -90,8 +92,9 @@ namespace Client
             string job = Utilites.readStringFromBuffer(buffer);
             string gender = Utilites.readStringFromBuffer(buffer);
             DateTime birthday = DateTime.FromBinary(BitConverter.ToInt64(buffer.ToArray(), 0));
-
-            return new User(isValid, userType, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday);
+            buffer.RemoveRange(0, sizeof(Int64));
+            int factoryID = Utilites.readIntFromBuffer(buffer);
+            return new User(isValid, userType, userID, name, surname, patronymic, passportSeries, passportNumber, job, gender, birthday, factoryID);
         }
     }
 }

@@ -10,9 +10,10 @@ namespace Client
     {
         public string name, surname, patronymic, job, destinationPlace, reason, fullNameOfSender;
         public DateTime from, to;
+        public int documentID;
 
         public BussinesTripInfo(string name, string surname, string patronymic, string job, string destinationPlace, string reason,
-            string fullNameOfSender, DateTime from, DateTime to)
+            string fullNameOfSender, DateTime from, DateTime to, int documentID)
         {
             this.name = name;
             this.surname = surname;
@@ -23,6 +24,7 @@ namespace Client
             this.fullNameOfSender = fullNameOfSender;
             this.from = from;
             this.to = to;
+            this.documentID = documentID;
         }
 
         public byte[] serialise()
@@ -45,11 +47,12 @@ namespace Client
             buffer.AddRange(Encoding.Default.GetBytes(fullNameOfSender));
             buffer.AddRange(BitConverter.GetBytes(from.Ticks));
             buffer.AddRange(BitConverter.GetBytes(to.Ticks));
+            buffer.AddRange(BitConverter.GetBytes(documentID));
 
             return buffer.ToArray();
         }
 
-        public BussinesTripInfo deserialise(List<byte> buffer)
+        public static BussinesTripInfo deserialise(List<byte> buffer)
         {
             string name = Utilites.readStringFromBuffer(buffer);
             string surname = Utilites.readStringFromBuffer(buffer);
@@ -61,8 +64,9 @@ namespace Client
             DateTime from = DateTime.FromBinary(BitConverter.ToInt64(buffer.ToArray(), 0));
             buffer.RemoveRange(0, sizeof(Int64));
             DateTime to = DateTime.FromBinary(BitConverter.ToInt64(buffer.ToArray(), 0));
-
-            return new BussinesTripInfo(name, surname, patronymic, job, destinationPlace, reason, fullNameOfSender, from, to);
+            buffer.RemoveRange(0, sizeof(Int64));
+            int documentID = Utilites.readIntFromBuffer(buffer);
+            return new BussinesTripInfo(name, surname, patronymic, job, destinationPlace, reason, fullNameOfSender, from, to, documentID);
         }
     }
 }
